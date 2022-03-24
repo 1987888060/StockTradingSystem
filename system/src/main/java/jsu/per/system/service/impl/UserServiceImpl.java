@@ -1,9 +1,12 @@
 package jsu.per.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jdk.nashorn.internal.parser.Token;
 import jsu.per.system.dao.UserMapper;
 import jsu.per.system.pojo.User;
 import jsu.per.system.service.UserService;
+import jsu.per.system.service.UserTokenService;
+import jsu.per.system.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +19,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserTokenService userTokenService;
 
     public User getUserBy(String username) {
 
-        User user = new User();
-        user.setUsername(username);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username",username);
 
-        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>(user);
-
-        List<User> users = userMapper.selectList(userQueryWrapper);
+        List<User> users = userMapper.selectList(queryWrapper);
         if(users.size()>1){
             //日志打印 级别error
             log.error("账号对应多个用户");
@@ -39,19 +42,70 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * 根据id获取用户
+     * @param id
+     * @return
+     */
     @Override
     public User getUserBy(int id) {
         return userMapper.selectById(id);
     }
 
     @Override
-    public void AddUser(User user) {
+    public List<User> getAllUser() {
+        return userMapper.getAllUser();
+    }
+
+    /**
+     * 添加
+     * @param user
+     */
+    @Override
+    public void addUser(User user) {
         userMapper.insert(user);
     }
 
+    /**
+     * 更新
+     * @param user
+     */
     @Override
-    public void UpdateUser(User user) {
+    public void updateUser(User user) {
         userMapper.updateById(user);
     }
+
+    /**
+     * 删除
+     * @param user
+     */
+    @Override
+    public void deleteUser(User user) {
+        userMapper.updateById(user);
+    }
+
+    /**
+     * 登陆 生成 token
+     * @param id 用户id
+     * @return token
+     */
+    @Override
+    public String login(int id) {
+        String user_id = ""+id;
+        String token = TokenUtil.creatToken(user_id);
+        userTokenService.addToken(token,user_id);
+        return token;
+    }
+
+    /**
+     * 退出 删除 缓存中的token
+     * @param token
+     */
+    @Override
+    public void logout(String token) {
+        userTokenService.deleteToken(token);
+    }
+
+
 }
 

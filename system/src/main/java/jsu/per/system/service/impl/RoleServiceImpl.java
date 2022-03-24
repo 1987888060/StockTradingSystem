@@ -6,6 +6,8 @@ import jsu.per.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
@@ -15,5 +17,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role selectById(int id) {
         return roleMapper.selectById(id);
+    }
+
+    @Override
+    public List<Integer> findRight(int id) {
+        return roleMapper.findRight(id);
     }
 }

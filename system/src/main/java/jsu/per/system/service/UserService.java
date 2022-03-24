@@ -2,13 +2,13 @@ package jsu.per.system.service;
 
 import jsu.per.system.pojo.User;
 
+import java.util.List;
+
 public interface UserService {
     /**
-     * 根据账号密码获取用户
+     * 根据用户名获取用户
      * @param username 账号
-     * @param password 密码
      * @return 用户
-     * @throws Exception 查询到多个用户 报错
      */
     User getUserBy(String username);
 
@@ -19,7 +19,27 @@ public interface UserService {
      */
     User getUserBy(int id);
 
-    void AddUser(User user);
+    List<User> getAllUser();
 
-    void UpdateUser(User user);
+    /**
+     * 添加用户
+     * @param user
+     */
+    void addUser(User user);
+
+    /**
+     * 更新
+     * @param user
+     */
+    void updateUser(User user);
+
+    /**
+     * 删除
+     * @param user
+     */
+    void deleteUser(User user);
+
+    String login(int id);
+
+    void logout(String token);
 }
