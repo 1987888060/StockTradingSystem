@@ -4,7 +4,7 @@
 
 <mapper namespace="jsu.per.system.dao.RoleMapper">
     <select id="findRight" parameterType="int" resultType="Integer">
-        SELECT right_id FROM `role_right` where role_id = #{id}
+        SELECT rightid FROM `role_right` where roleid = #{id}
     </select>
 
 </mapper>

@@ -78,6 +78,7 @@ public class AuthFilter extends AuthenticatingFilter {
         }
         System.out.println("前端请求token="+token);
         if (StringUtils.isBlank(token)) {
+            System.out.println("11111111111111111111111111111111");
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
             String orgin = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Origin");
@@ -104,14 +105,17 @@ public class AuthFilter extends AuthenticatingFilter {
         String orgin = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getHeader("Origin");
         httpResponse.setHeader("Access-Control-Allow-Origin", orgin);
         httpResponse.setCharacterEncoding("UTF-8");
+
         try {
             //处理登录失败的异常
             Throwable throwable = e.getCause() == null ? e : e.getCause();
+            System.out.println("2222222222222222222222");
             JsonResult jsonResult = new JsonResult();
             jsonResult.setCode("403");
             jsonResult.setMsg("登录凭证已失效，请重新登录");
             String json = new ObjectMapper().writeValueAsString(jsonResult);
             httpResponse.getWriter().print(json);
+            System.out.println(throwable);
         } catch (IOException e1) {
         }
         return false;

@@ -14,8 +14,8 @@ public class UserTokenServiceImpl implements UserTokenService{
 
     @Override
     @Cacheable(key = "#token")
-    public String isExistKey(String token) {
-        return null;
+    public String isExistKey(String token,String str) {
+        return str;
     }
 
     @Override
@@ -27,7 +27,6 @@ public class UserTokenServiceImpl implements UserTokenService{
     @Override
     @CacheEvict(key = "#token")
     public void deleteToken(String token) {
-
     }
 
     @Override

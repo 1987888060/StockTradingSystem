@@ -1,5 +1,6 @@
 package jsu.per.system.config;
 
+import jsu.per.system.service.UserTokenService;
 import jsu.per.system.shiro.AuthFilter;
 import jsu.per.system.shiro.UserRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -22,10 +23,10 @@ public class ShiroConfig {
     /**
      * 注入自定义权限验证对象
      */
-    @Bean
-    public UserRealm userRealm() {
-        return new UserRealm();
-    }
+//    @Bean
+//    public UserRealm userRealm() {
+//        return new UserRealm();
+//    }
 
     /**
      * SecurityManager是Shiro框架的核心，典型的Facade模式，

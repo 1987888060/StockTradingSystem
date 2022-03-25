@@ -29,6 +29,8 @@ public class UserController {
         String username = loginDTO.getUsername();
         String password = loginDTO.getPassword();
 
+        System.out.println(username);
+        System.out.println(password);
         User user = userService.getUserBy(username);
         System.out.println(user);
 
@@ -47,7 +49,7 @@ public class UserController {
             userDTO.setEmail(user.getEmail());
             userDTO.setId(user.getId());
             userDTO.setUsername(user.getUsername());
-            userDTO.setRole_id(user.getRole_id());
+            userDTO.setRoleid(user.getRoleid());
             userDTO.setPassword(user.getPassword());
             result.setData(userDTO);
         }
@@ -65,12 +67,14 @@ public class UserController {
         return result;
     }
 
+    // 目的：用于测试shiro框架是否运行正确 结果：正确运行
     @RequiresPermissions("1")
     @GetMapping("/getDemo01.do")
     public List<User> getDemo01(){
         return userService.getAllUser();
     }
 
+    // 目的：用于测试shiro框架是否运行正确 结果：正确运行
     @RequiresPermissions("7")
     @GetMapping("/getDemo02.do")
     public List<User> getDemo02(){

@@ -3,7 +3,10 @@ package jsu.per.system.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.sql.In;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @AllArgsConstructor
@@ -14,5 +17,5 @@ public class User {
     private String email;
     private String username;
     private String password;
-    private int role_id;
+    private int roleid;
 }

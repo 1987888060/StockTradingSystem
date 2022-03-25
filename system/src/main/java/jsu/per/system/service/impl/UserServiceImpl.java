@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     public User getUserBy(String username) {
 
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("username",username);
 
         List<User> users = userMapper.selectList(queryWrapper);
@@ -97,7 +97,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(int id) {
         String user_id = ""+id;
-        String token = TokenUtil.creatToken(user_id);
+        String token = null;
+        try {
+            token = TokenUtil.creatToken(user_id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         userTokenService.addToken(token,user_id);
         return token;
     }
