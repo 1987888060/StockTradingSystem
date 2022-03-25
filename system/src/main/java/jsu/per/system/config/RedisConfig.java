@@ -25,10 +25,9 @@ public class RedisConfig {
         RedisCacheConfiguration configuration =RedisCacheConfiguration.defaultCacheConfig()
                 //设置过期时间
                 .entryTtl(Duration.ofHours(1))
-                .disableCachingNullValues()
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
-        return RedisCacheManager.builder(factory).withCacheConfiguration("usertoken",configuration).build();
+        return RedisCacheManager.builder(factory).withCacheConfiguration("userToken",configuration).build();
     }
 
     /**

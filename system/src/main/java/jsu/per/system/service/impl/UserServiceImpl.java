@@ -1,7 +1,6 @@
 package jsu.per.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import jdk.nashorn.internal.parser.Token;
 import jsu.per.system.dao.UserMapper;
 import jsu.per.system.pojo.User;
 import jsu.per.system.service.UserService;
@@ -9,6 +8,7 @@ import jsu.per.system.service.UserTokenService;
 import jsu.per.system.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +19,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
-    @Autowired
+
     private UserTokenService userTokenService;
+
+    @Lazy
+    public UserServiceImpl(UserTokenService service){
+        userTokenService  = service;
+    }
 
     public User getUserBy(String username) {
 
