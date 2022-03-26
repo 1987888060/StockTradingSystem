@@ -1,6 +1,7 @@
 package jsu.per.system.controller;
 
 import jsu.per.system.DTO.LoginDTO;
+import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.DTO.UserDTO;
 import jsu.per.system.pojo.User;
 import jsu.per.system.result.JsonResult;
@@ -23,7 +24,11 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
+    /**
+     * 登陆
+     * @param loginDTO
+     * @return
+     */
     @PostMapping("/login.do")
     public JsonResult<UserDTO> login(@RequestBody @Validated LoginDTO loginDTO) {
         String username = loginDTO.getUsername();
@@ -57,7 +62,11 @@ public class UserController {
         return result;
     }
 
-
+    /**
+     * 退出
+     * @param token
+     * @return
+     */
     @PostMapping("/logout.do")
     public JsonResult<String> logout(@RequestHeader("token") String token) {
         JsonResult<String> result = new JsonResult<>();
@@ -65,6 +74,31 @@ public class UserController {
         result.setMsg("安全退出");
         userService.logout(token);
         return result;
+    }
+
+    /**
+     * 注册
+     * @param registerDTO
+     * @return
+     */
+//    @PostMapping("/register.do")
+//    public JsonResult<String> register(@RequestBody RegisterDTO registerDTO){
+//        registerDTO.
+//        userService.register(registerDTO);
+//        JsonResult<String> result = new JsonResult<>();
+//        result.setCode("200");
+//        result.setMsg("注册成功");
+//        return result;
+//    }
+
+    /**
+     * 发送验证码
+     * @param email
+     * @return
+     */
+    @GetMapping("/sendVerificationCode.do")
+    public void sendVerificationCode(@RequestParam String email){
+        userService.sendVerificationCode(email);
     }
 
     // 目的：用于测试shiro框架是否运行正确 结果：正确运行

@@ -1,5 +1,6 @@
 package jsu.per.system.service;
 
+import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.pojo.User;
 
 import java.util.List;
@@ -42,4 +43,11 @@ public interface UserService {
     String login(int id);
 
     void logout(String token);
+
+    /**
+     * 注册
+     */
+    void register(RegisterDTO registerDTO);
+
+    void sendVerificationCode(String email);
 }

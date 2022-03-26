@@ -22,13 +22,22 @@ public class RedisConfig {
      */
     @Bean
     public CacheManager cacheManager(RedisConnectionFactory factory){
-        RedisCacheConfiguration configuration =RedisCacheConfiguration.defaultCacheConfig()
-                //设置过期时间
+        RedisCacheConfiguration configuration1 =RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 1小时
                 .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
-        return RedisCacheManager.builder(factory).withCacheConfiguration("userToken",configuration).build();
+        RedisCacheConfiguration configuration2 = RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 2分钟
+                .entryTtl(Duration.ofMinutes(2))
+                .serializeKeysWith(keyPair())
+                .serializeValuesWith(valuePair());
+        return RedisCacheManager.builder(factory)
+                .withCacheConfiguration("userToken",configuration1)
+                .withCacheConfiguration("vCode",configuration2)
+                .build();
     }
+
 
     /**
      * 配置键序列化

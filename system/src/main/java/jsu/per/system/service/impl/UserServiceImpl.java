@@ -1,16 +1,21 @@
 package jsu.per.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.dao.UserMapper;
 import jsu.per.system.pojo.User;
 import jsu.per.system.service.UserService;
 import jsu.per.system.service.UserTokenService;
+import jsu.per.system.service.VCodeService;
+import jsu.per.system.utils.CodeUtil;
+import jsu.per.system.utils.EmailUtil;
 import jsu.per.system.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Slf4j
@@ -22,9 +27,12 @@ public class UserServiceImpl implements UserService {
 
     private UserTokenService userTokenService;
 
+    private VCodeService vCodeService;
+
     @Lazy
-    public UserServiceImpl(UserTokenService service){
-        userTokenService  = service;
+    public UserServiceImpl(UserTokenService service,VCodeService vCodeService){
+        this.userTokenService  = service;
+        this.vCodeService = vCodeService;
     }
 
     public User getUserBy(String username) {
@@ -114,6 +122,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public void logout(String token) {
         userTokenService.deleteToken(token);
+    }
+
+    @Override
+    public void register(RegisterDTO registerDTO) {
+
+    }
+
+    @Override
+    public void sendVerificationCode(String email) {
+        String code = CodeUtil.getCode();
+        String msg = "你的验证码为:"+code+"。此邮件无需回复！！！";
+        EmailUtil.sendVerificationCode(email,"Stock Trading System",msg);
+        String s = vCodeService.updateCode(email, code);
+        if(!code.equals(s)){
+            log.warn("存储的code与存入的code不一致");
+        }
     }
 
 
