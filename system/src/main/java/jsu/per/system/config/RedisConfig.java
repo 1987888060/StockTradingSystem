@@ -28,8 +28,8 @@ public class RedisConfig {
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
         RedisCacheConfiguration configuration2 = RedisCacheConfiguration.defaultCacheConfig()
-                //设置过期时间 2分钟
-                .entryTtl(Duration.ofMinutes(2))
+                //设置过期时间 5分钟
+                .entryTtl(Duration.ofMinutes(5))
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
         return RedisCacheManager.builder(factory)

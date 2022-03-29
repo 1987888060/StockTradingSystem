@@ -1,5 +1,7 @@
 package jsu.per.system.service;
 
+import org.springframework.cache.annotation.CacheEvict;
+
 /**
  * 验证码存储redis
  */
@@ -19,4 +21,10 @@ public interface VCodeService {
      * @return
      */
     String addCode(String email,String code);
+
+    /**
+     * 删除
+     * @param email
+     */
+    void deleteCode(String email);
 }

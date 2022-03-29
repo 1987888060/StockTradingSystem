@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.dao.UserMapper;
 import jsu.per.system.pojo.User;
+import jsu.per.system.result.JsonResult;
 import jsu.per.system.service.UserService;
 import jsu.per.system.service.UserTokenService;
 import jsu.per.system.service.VCodeService;
@@ -66,6 +67,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> getUsersBy(String username) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("username",username);
+
+        List<User> users = userMapper.selectList(queryWrapper);
+        return users;
+    }
+
+    @Override
     public List<User> getAllUser() {
         return userMapper.getAllUser();
     }
@@ -124,10 +134,6 @@ public class UserServiceImpl implements UserService {
         userTokenService.deleteToken(token);
     }
 
-    @Override
-    public void register(RegisterDTO registerDTO) {
-
-    }
 
     @Override
     public void sendVerificationCode(String email) {

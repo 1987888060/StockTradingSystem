@@ -1,11 +1,13 @@
 package jsu.per.system.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jsu.per.system.DTO.LoginDTO;
 import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.DTO.UserDTO;
 import jsu.per.system.pojo.User;
 import jsu.per.system.result.JsonResult;
 import jsu.per.system.service.UserService;
+import jsu.per.system.service.VCodeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -22,7 +24,9 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private VCodeService vCodeService;
 
     /**
      * 登陆
@@ -81,15 +85,62 @@ public class UserController {
      * @param registerDTO
      * @return
      */
-//    @PostMapping("/register.do")
-//    public JsonResult<String> register(@RequestBody RegisterDTO registerDTO){
-//        registerDTO.
-//        userService.register(registerDTO);
-//        JsonResult<String> result = new JsonResult<>();
-//        result.setCode("200");
-//        result.setMsg("注册成功");
-//        return result;
-//    }
+    @PostMapping("/register.do")
+    public JsonResult<String> register(@RequestBody RegisterDTO registerDTO){
+        JsonResult<String> result = new JsonResult<>();
+
+        //验证码
+        String vcode = registerDTO.getVcode();
+        String email = registerDTO.getEmail();
+        String username = registerDTO.getUsername();
+        String password = registerDTO.getPassword();
+        if(vcode == null){
+            result.setCode("403");
+            result.setMsg("验证码不正确");
+            return result;
+        }
+
+        //取出redis中的vcode
+        String code = vCodeService.addCode(email, "null");
+        //验证码过期
+        if(vcode.equals("null")){
+            vCodeService.deleteCode(email);
+            result.setCode("403");
+            result.setMsg("验证码已过期");
+            return result;
+        }
+
+        //未过期
+        if(code.equals(vcode)){//真确
+            //查询用户名是否唯一
+            List<User> users = userService.getUsersBy(username);
+            if(users.size()>0){//存在
+                result.setCode("403");
+               result.setMsg("用户名已存在");
+            }else{//不存在
+                User user = new User();
+                //默认姓名
+                user.setName("用户"+username);
+                user.setUsername(username);
+                user.setPassword(password);
+                user.setEmail(email);
+                //默认角色 --> 普通用户 现在先写为1 后期要改1
+                user.setRoleid(1);
+                userService.addUser(user);
+                result.setCode("200");
+                result.setMsg("注册成功，跳转至登陆页面");
+                //注册成功后 删除redis中的验证码
+                vCodeService.deleteCode(email);
+            }
+            //查询邮箱是否唯一(以后补充)
+
+        }else{//错误
+            result.setCode("403");
+            result.setMsg("验证码不正确");
+        }
+        return result;
+    }
+
 
     /**
      * 发送验证码

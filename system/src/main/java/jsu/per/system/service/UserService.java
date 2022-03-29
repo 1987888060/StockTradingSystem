@@ -2,6 +2,7 @@ package jsu.per.system.service;
 
 import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.pojo.User;
+import jsu.per.system.result.JsonResult;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface UserService {
      * @return 用户
      */
     User getUserBy(int id);
+
+    List<User> getUsersBy(String username);
 
     List<User> getAllUser();
 
@@ -44,10 +47,6 @@ public interface UserService {
 
     void logout(String token);
 
-    /**
-     * 注册
-     */
-    void register(RegisterDTO registerDTO);
 
     void sendVerificationCode(String email);
 }

@@ -22,4 +22,8 @@ public class VCodeServiceImpl implements VCodeService {
     public String addCode(String email, String code) {
         return code;
     }
+
+    @Override
+    @CacheEvict(key = "#email")
+    public void deleteCode(String email) {}
 }
