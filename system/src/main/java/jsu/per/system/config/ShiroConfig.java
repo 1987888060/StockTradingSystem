@@ -1,6 +1,5 @@
 package jsu.per.system.config;
 
-import jsu.per.system.service.UserTokenService;
 import jsu.per.system.shiro.AuthFilter;
 import jsu.per.system.shiro.UserRealm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;

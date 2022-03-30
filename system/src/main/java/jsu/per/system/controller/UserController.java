@@ -1,6 +1,5 @@
 package jsu.per.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jsu.per.system.DTO.LoginDTO;
 import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.DTO.UserDTO;
@@ -10,14 +9,10 @@ import jsu.per.system.service.UserService;
 import jsu.per.system.service.VCodeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("user")

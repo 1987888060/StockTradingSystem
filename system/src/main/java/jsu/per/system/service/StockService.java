@@ -4,7 +4,6 @@ package jsu.per.system.service;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.IOException;
-import java.util.Date;
 
 public interface StockService {
     //获取所有的股票 只获取股票名和股票代码

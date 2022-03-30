@@ -4,15 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import jsu.per.system.service.StockService;
 
 import jsu.per.system.utils.OKHTTPUtil;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Date;
 
 @Service
 public class StockServiceImpl implements StockService {

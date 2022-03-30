@@ -1,7 +1,5 @@
 package jsu.per.system.service;
 
-import org.springframework.cache.annotation.CacheEvict;
-
 /**
  * 验证码存储redis
  */

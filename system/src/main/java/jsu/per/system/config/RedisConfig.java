@@ -32,9 +32,30 @@ public class RedisConfig {
                 .entryTtl(Duration.ofMinutes(5))
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
+        //所有股票信息 只包含股票名和股票代码 每天的查询两次
+        RedisCacheConfiguration configuration3 = RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 12小时
+                .entryTtl(Duration.ofHours(12))
+                .serializeKeysWith(keyPair())
+                .serializeValuesWith(valuePair());
+        //所有股票信息 只包含股票名和股票代码 每天的查询两次
+        RedisCacheConfiguration configuration4 = RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 12小时
+                .entryTtl(Duration.ofHours(12))
+                .serializeKeysWith(keyPair())
+                .serializeValuesWith(valuePair());
+        //存储用户查询到的股票基本信息
+        RedisCacheConfiguration configuration5 = RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 1小时
+                .entryTtl(Duration.ofHours(1))
+                .serializeKeysWith(keyPair())
+                .serializeValuesWith(valuePair());
         return RedisCacheManager.builder(factory)
                 .withCacheConfiguration("userToken",configuration1)
                 .withCacheConfiguration("vCode",configuration2)
+                .withCacheConfiguration("stock:all1",configuration3)
+                .withCacheConfiguration("stock:all2",configuration4)
+                .withCacheConfiguration("stock:info",configuration5)
                 .build();
     }
 

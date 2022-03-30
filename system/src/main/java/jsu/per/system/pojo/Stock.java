@@ -52,6 +52,28 @@ public class Stock {
     private String pe;
 
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (this == obj)
+            return true;
+        if (obj instanceof Stock) {
+            Stock stock = (Stock) obj;
 
+            // 比较每个属性的值一致时才返回true
+            if (stock.name.equals(this.name) )
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * 重写hashcode方法，返回的hashCode一样才再去比较每个属性的值
+     */
+    @Override
+    public int hashCode() {
+        return name.hashCode() * code.hashCode();
+    }
 
 }

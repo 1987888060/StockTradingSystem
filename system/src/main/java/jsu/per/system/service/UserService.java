@@ -1,8 +1,6 @@
 package jsu.per.system.service;
 
-import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.pojo.User;
-import jsu.per.system.result.JsonResult;
 
 import java.util.List;
 

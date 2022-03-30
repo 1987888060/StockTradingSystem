@@ -1,10 +1,8 @@
 package jsu.per.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import jsu.per.system.DTO.RegisterDTO;
 import jsu.per.system.dao.UserMapper;
 import jsu.per.system.pojo.User;
-import jsu.per.system.result.JsonResult;
 import jsu.per.system.service.UserService;
 import jsu.per.system.service.UserTokenService;
 import jsu.per.system.service.VCodeService;
@@ -16,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Email;
 import java.util.List;
 
 @Slf4j
