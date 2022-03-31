@@ -25,4 +25,8 @@ public interface StockAllCacheService {
      */
     Set<Stock> getKeyValue(String str);
 
+    /**
+     * 通过code查询是否存在
+     */
+    boolean isExist(String code);
 }

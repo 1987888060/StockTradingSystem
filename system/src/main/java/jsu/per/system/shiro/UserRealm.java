@@ -91,10 +91,13 @@ public class UserRealm extends AuthorizingRealm {
         }
         //通过token从redis中读取user_id
         String user_id = userTokenService.isExistKey(str,null);
-        System.out.println(user_id);
+        System.out.println("user_id:"+user_id);
         if(user_id == null){
             throw new UnknownAccountException("user_id");
         }
+        //更新一下缓存
+        userTokenService.updateToken(str,user_id);
+
         int id = Integer.valueOf(user_id);
         User user = userService.getUserBy(id);
         System.out.println(user);

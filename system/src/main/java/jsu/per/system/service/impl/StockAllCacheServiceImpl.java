@@ -57,5 +57,9 @@ public class StockAllCacheServiceImpl implements StockAllCacheService {
         return stocks;
     }
 
-
+    @Override
+    public boolean isExist(String code) {
+        String string = "stock:all1::"+code;
+        return redisTemplate.hasKey(string);
+    }
 }

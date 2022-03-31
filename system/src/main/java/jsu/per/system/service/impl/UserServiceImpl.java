@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        userTokenService.addToken(token,user_id);
+        userTokenService.updateToken(token,user_id);
         return token;
     }
 

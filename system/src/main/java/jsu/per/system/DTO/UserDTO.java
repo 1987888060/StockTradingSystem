@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDTO extends User {
     private String token;
+    private String rolename;
+    //用于修改邮箱和密码时使用
+    private String vcode;
 }
