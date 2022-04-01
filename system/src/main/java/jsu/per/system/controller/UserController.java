@@ -3,15 +3,18 @@ package jsu.per.system.controller;
 import jsu.per.system.DTO.LoginDTO;
 import jsu.per.system.DTO.UserDTO;
 import jsu.per.system.pojo.User;
-import jsu.per.system.pojo.Wallet;
+import jsu.per.system.pojo.WalletRecord;
 import jsu.per.system.result.JsonResult;
 import jsu.per.system.service.*;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,6 +29,8 @@ public class UserController {
     private RoleService roleService;
     @Autowired
     private WalletService walletService;
+    @Autowired
+    private WalletRecordService walletRecordService;
 
     private UserTokenService userTokenService;
 
@@ -474,10 +479,66 @@ public class UserController {
         return json;
     }
 
-    /**
-     * 充值
-     */
+    //ok
+    //充钱 支付宝弄好了 再改
+    @RequiresPermissions("1")
+    @PutMapping("/chargeMoney.do")
+    public JsonResult<String> chargeMoney(@PathParam("money") double money){
+        JsonResult<String> json = new JsonResult<>();
+        json.setCode("200");
+        json.setMsg("操作成功");
 
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        int userid = user.getId();
+
+        walletService.saving(userid,money);
+
+        WalletRecord record = new WalletRecord();
+
+        record.setMoney(money);
+        record.setUserid(userid);
+        record.setTime(new Date(System.currentTimeMillis()));
+        record.setType(1);
+
+        walletRecordService.saving(record);
+
+        json.setData("充值成功");
+        return json;
+    }
+
+    //ok
+    //提现
+    @RequiresPermissions("1")
+    @PutMapping("/withdrawMoney.do")
+    public JsonResult<String> withdrawMoney(@PathParam("money") double money){
+        JsonResult<String> json = new JsonResult<>();
+        json.setCode("200");
+        json.setMsg("操作成功");
+
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        int userid = user.getId();
+
+        boolean remove = walletService.remove(userid, money);
+        if (remove){
+            json.setData("提现成功");
+            WalletRecord record = new WalletRecord();
+
+            record.setMoney(money);
+            record.setUserid(userid);
+            record.setTime(new Date(System.currentTimeMillis()));
+            record.setType(0);
+
+            walletRecordService.saving(record);
+
+
+
+        }else{
+            json.setData("提现失败，余额不足");
+        }
+
+
+        return json;
+    }
 
 
 }

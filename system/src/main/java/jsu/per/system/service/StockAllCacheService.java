@@ -29,4 +29,6 @@ public interface StockAllCacheService {
      * 通过code查询是否存在
      */
     boolean isExist(String code);
+
+    Stock getStock(String code);
 }

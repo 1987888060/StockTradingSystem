@@ -5,6 +5,7 @@ import jsu.per.system.service.StockAllCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +62,11 @@ public class StockAllCacheServiceImpl implements StockAllCacheService {
     public boolean isExist(String code) {
         String string = "stock:all1::"+code;
         return redisTemplate.hasKey(string);
+    }
+
+    @Override
+    @Cacheable(cacheNames = "stock:all1",key = "#code")
+    public Stock getStock(String code) {
+        return null;
     }
 }

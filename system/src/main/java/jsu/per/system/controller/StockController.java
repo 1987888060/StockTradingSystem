@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import jsu.per.system.DTO.StockDTO;
 import jsu.per.system.pojo.BuyedStock;
+import jsu.per.system.pojo.HistoryTrade;
 import jsu.per.system.pojo.Stock;
 import jsu.per.system.pojo.User;
 import jsu.per.system.result.JsonResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Set;
 
 
@@ -35,6 +37,8 @@ public class StockController {
     WalletService walletService;
     @Autowired
     BuyedStockService buyedStockService;
+    @Autowired
+    HistoryTradeService historyTradeService;
 
     /**
      * 查询股票
@@ -240,11 +244,12 @@ public class StockController {
 
     }
 
+    //ok
     /**
      * 自选
      */
     @RequiresPermissions("1")
-    @PutMapping("/pickStock.do")
+    @PostMapping("/pickStock.do")
     public JsonResult<String> pickStock(@PathParam("code") String code){
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         pickedStockService.add(user.getId(), code);
@@ -256,13 +261,14 @@ public class StockController {
         return json;
     }
 
+    //ok
     /**
      * 取消选定
      * @param code
      * @return
      */
     @RequiresPermissions("1")
-    @PutMapping("/disPickStock.do")
+    @DeleteMapping("/disPickStock.do")
     public JsonResult<String> disPickStock(@PathParam("code") String code){
         User user = (User) SecurityUtils.getSubject().getPrincipal();
 
@@ -275,7 +281,7 @@ public class StockController {
         return json;
     }
 
-
+    //ok
     /**
      * 购买股票
      */
@@ -315,6 +321,28 @@ public class StockController {
                    //扣钱成功
                     if (walletService.remove(user.getId(),total)){
                         buyedStockService.buy(user.getId(),code,stockDTO.getNum());
+
+                        //进行记录
+                        HistoryTrade trade = new HistoryTrade();
+                        //股票代码
+                        trade.setStockcode(stock.getCode());
+                        //股票名
+                        trade.setStockname(stock.getName());
+                        //交易数量
+                        trade.setNum(stockDTO.getNum());
+                        //交易额
+                        trade.setVolume(total);
+                        //交易单价
+                        trade.setPrice(price);
+                        //who
+                        trade.setUserid(user.getId());
+                        //type
+                        trade.setType(1);
+                        //交易时间
+                        trade.setTime(new Date(System.currentTimeMillis()));
+
+                        historyTradeService.storage(trade);
+
                     }else{//扣钱失败
                         json.setCode("500");
                         json.setMsg("系统故障，扣钱失败");
@@ -336,6 +364,7 @@ public class StockController {
         return json;
     }
 
+    //ok
     /**
      * 出售股票
      */
@@ -367,9 +396,33 @@ public class StockController {
                         double price = Double.valueOf(stock.getPrice());
 
                         if (walletService.saving(userid,price*num)){
-                            num = buyedStock.getNum() - num;
-                            buyedStock.setNum(num);
+
+                            buyedStock.setNum(buyedStock.getNum() - num);
                             buyedStockService.sell(buyedStock);
+
+
+                            //进行记录
+                            HistoryTrade trade = new HistoryTrade();
+                            //股票代码
+                            trade.setStockcode(stock.getCode());
+                            //股票名
+                            trade.setStockname(stock.getName());
+                            //交易数量
+                            trade.setNum(num);
+                            //交易额
+                            trade.setVolume(price*num);
+                            //交易单价
+                            trade.setPrice(price);
+                            //who
+                            trade.setUserid(user.getId());
+                            //type
+                            trade.setType(0);
+                            //交易时间
+                            trade.setTime(new Date(System.currentTimeMillis()));
+
+                            historyTradeService.storage(trade);
+
+
                         }else {
                             json.setCode("500");
                             json.setMsg("系统故障,出售失败");
