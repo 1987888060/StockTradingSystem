@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jsu.per.system.dao.BuyedStockMapper;
 import jsu.per.system.pojo.BuyedStock;
 import jsu.per.system.pojo.PickedStock;
+import jsu.per.system.pojo.Stock;
+import jsu.per.system.pojo.StockSimple;
 import jsu.per.system.service.BuyedStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.List;
 @Service
 public class BuyedStockServiceImpl implements BuyedStockService {
     @Autowired
-    BuyedStockMapper buyedStockMapper;
+    private BuyedStockMapper buyedStockMapper;
 
     @Override
     public void buy(int userid, String code, int num) {
@@ -60,6 +62,11 @@ public class BuyedStockServiceImpl implements BuyedStockService {
     }
 
     @Override
+    public List<BuyedStock> selectAll() {
+        return buyedStockMapper.selectList(null);
+    }
+
+    @Override
     public BuyedStock selectBy(int userid, String code) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("userid",userid);
@@ -67,6 +74,12 @@ public class BuyedStockServiceImpl implements BuyedStockService {
 
         return   buyedStockMapper.selectOne(queryWrapper);
 
+    }
+
+    @Override
+    public List<StockSimple> getBuyed(int userid) {
+        List<StockSimple> list = buyedStockMapper.getBuyed(userid);
+        return list;
     }
 
 }

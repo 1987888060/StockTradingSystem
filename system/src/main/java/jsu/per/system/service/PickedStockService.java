@@ -2,6 +2,8 @@ package jsu.per.system.service;
 
 import jsu.per.system.pojo.PickedStock;
 
+import java.util.List;
+
 public interface PickedStockService {
 
     /**
@@ -13,4 +15,17 @@ public interface PickedStockService {
      * 删除自选
      */
     void delete(int userid,String code);
+
+    /**
+     * 查询所有
+     */
+    List<PickedStock> getAll();
+
+    /**
+     * 根据userid查询
+     * @param userid
+     */
+    List<PickedStock> getByUserid(int userid);
+
+
 }

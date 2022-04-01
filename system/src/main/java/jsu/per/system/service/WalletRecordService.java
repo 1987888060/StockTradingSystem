@@ -9,4 +9,6 @@ public interface WalletRecordService {
     void saving(WalletRecord record);
 
     List<WalletRecord> readByUserid(int userid);
+
+    List<WalletRecord> selectAll();
 }

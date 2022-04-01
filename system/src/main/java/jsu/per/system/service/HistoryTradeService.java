@@ -12,6 +12,9 @@ public interface HistoryTradeService {
     //读取 按照id
     HistoryTrade readById(int id);
 
+    //所有
+    List<HistoryTrade> readAll();
+
     //读取 按照userid
     List<HistoryTrade> readByUserid(int userid);
 

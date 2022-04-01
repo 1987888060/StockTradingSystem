@@ -25,6 +25,11 @@ public class HistoryTradeServiceImpl implements HistoryTradeService {
     }
 
     @Override
+    public List<HistoryTrade> readAll() {
+        return historyTradeMapper.selectList(null);
+    }
+
+    @Override
     public List<HistoryTrade> readByUserid(int userid) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("userid",userid);
@@ -48,7 +53,7 @@ public class HistoryTradeServiceImpl implements HistoryTradeService {
     public List<HistoryTrade> readByCode(int userid, String code) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("userid",userid);
-        queryWrapper.eq("code",code);
+        queryWrapper.eq("stockcode",code);
 
         List list = historyTradeMapper.selectList(queryWrapper);
 

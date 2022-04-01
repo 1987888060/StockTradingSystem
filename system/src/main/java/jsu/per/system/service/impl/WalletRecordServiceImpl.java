@@ -30,4 +30,10 @@ public class WalletRecordServiceImpl implements WalletRecordService {
         return list;
 
     }
+
+    @Override
+    public List<WalletRecord> selectAll() {
+        List<WalletRecord> walletRecords = walletRecordMapper.selectList(null);
+        return walletRecords;
+    }
 }

@@ -7,6 +7,8 @@ import jsu.per.system.service.PickedStockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PickedStockServiceImpl implements PickedStockService {
 
@@ -38,5 +40,20 @@ public class PickedStockServiceImpl implements PickedStockService {
         if (pickedStock != null){
             pickedStockMapper.deleteById(pickedStock.getId());
         }
+    }
+
+    @Override
+    public List<PickedStock> getAll() {
+        List<PickedStock> pickedStocks = pickedStockMapper.selectList(null);
+        return pickedStocks;
+    }
+
+    @Override
+    public List<PickedStock> getByUserid(int userid) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("userid",userid);
+
+        List list = pickedStockMapper.selectList(queryWrapper);
+        return list;
     }
 }

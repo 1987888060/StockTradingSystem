@@ -193,20 +193,6 @@ public class UserController {
         userService.sendVerificationCode(email);
     }
 
-    // 目的：用于测试shiro框架是否运行正确 结果：正确运行
-    @RequiresPermissions("1")
-    @GetMapping("/getDemo01.do")
-    public List<User> getDemo01(){
-        return userService.getAllUser();
-    }
-
-    // 目的：用于测试shiro框架是否运行正确 结果：正确运行
-    @RequiresPermissions("7")
-    @GetMapping("/getDemo02.do")
-    public List<User> getDemo02(){
-        return userService.getAllUser();
-    }
-
     //ok
     /**
      * 更新用户信息
@@ -310,7 +296,7 @@ public class UserController {
     }
 
     //ok
-    /***
+    /**
      * 绑定新邮箱 第一种方式发送email
      * @param userDTO
      * @return
@@ -507,7 +493,9 @@ public class UserController {
     }
 
     //ok
-    //提现
+    /**
+     * 提现
+     */
     @RequiresPermissions("1")
     @PutMapping("/withdrawMoney.do")
     public JsonResult<String> withdrawMoney(@PathParam("money") double money){
@@ -540,5 +528,22 @@ public class UserController {
         return json;
     }
 
+    //ok
+    /**
+     * 获取钱包余额
+     */
+    @RequiresPermissions("1")
+    @GetMapping("/getMoney.do")
+    public JsonResult<Double> getMoney(){
+        JsonResult<Double> json = new JsonResult<>();
+        json.setCode("200");
+        json.setMsg("操作成功");
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        int userid = user.getId();
 
+        double money = walletService.getMoney(userid);
+        json.setData(money);
+
+        return json;
+    }
 }
