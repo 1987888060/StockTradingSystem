@@ -33,7 +33,7 @@ public interface AdminService {
     /**
      * 删除
      */
-    void deleteAdmin(Admin admin);
+    void deleteAdmin(int adminid);
 
     String login(int id);
 

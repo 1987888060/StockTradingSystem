@@ -39,7 +39,7 @@ public interface UserService {
      * 删除
      * @param user
      */
-    void deleteUser(User user);
+    void deleteUser(int userid);
 
     String login(int id);
 

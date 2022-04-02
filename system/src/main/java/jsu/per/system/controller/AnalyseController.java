@@ -89,21 +89,6 @@ public class AnalyseController {
         return json;
     }
 
-    //ok
-    //获取所有用户信息
-    @RequiresPermissions("1")
-    @GetMapping("/getAllUser.do")
-    JsonResult<List<User>> getAllUser(){
-        List list = userService.getAllUser();
-
-        JsonResult<List<User>> json = new JsonResult<>();
-
-        json.setCode("200");
-        json.setMsg("执行成功");
-        json.setData(list);
-
-        return json;
-    }
 
     //ok
     /**

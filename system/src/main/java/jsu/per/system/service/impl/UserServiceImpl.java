@@ -97,11 +97,10 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 删除
-     * @param user
      */
     @Override
-    public void deleteUser(User user) {
-        userMapper.deleteById(user.getId());
+    public void deleteUser(int userid) {
+        userMapper.deleteById(userid);
     }
 
     /**
