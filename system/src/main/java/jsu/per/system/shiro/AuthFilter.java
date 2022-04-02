@@ -6,6 +6,7 @@ import jsu.per.system.result.JsonResult;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -30,15 +31,16 @@ public class AuthFilter extends AuthenticatingFilter {
         //从header中获取token
         HttpServletRequest rq = (HttpServletRequest) request;
         String token = rq.getHeader("token");
+        String type = rq.getHeader("type");
 
         //如果header中不存在token，则从参数中获取token
         if (StringUtils.isBlank(token)) {
             token = rq.getParameter("token");
         }
-
+        System.out.println("type:"+type);
         System.out.println("后端获取前端headers或者参数处的token="+token);
 
-        return new AuthToken(token);
+        return new AuthToken(token,Integer.valueOf(type));
     }
 
     /**
@@ -72,12 +74,15 @@ public class AuthFilter extends AuthenticatingFilter {
         //从header中获取token
         HttpServletRequest rq = (HttpServletRequest) request;
         String token = rq.getHeader("token");
+        String type = rq.getHeader("type");
+
         //如果header中不存在token，则从参数中获取token
         if (StringUtils.isBlank(token)) {
             token = rq.getParameter("token");
         }
+
         System.out.println("前端请求token="+token);
-        if (StringUtils.isBlank(token)) {
+        if (StringUtils.isBlank(token)||StringUtils.isBlank(type)) {
             System.out.println("11111111111111111111111111111111");
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
@@ -91,6 +96,7 @@ public class AuthFilter extends AuthenticatingFilter {
             httpResponse.getWriter().print(json);
             return false;
         }
+
         return executeLogin(request, response);
     }
 

@@ -50,12 +50,19 @@ public class RedisConfig {
                 .entryTtl(Duration.ofHours(1))
                 .serializeKeysWith(keyPair())
                 .serializeValuesWith(valuePair());
+        //存储admin token
+        RedisCacheConfiguration configuration6 = RedisCacheConfiguration.defaultCacheConfig()
+                //设置过期时间 1小时
+                .entryTtl(Duration.ofHours(1))
+                .serializeKeysWith(keyPair())
+                .serializeValuesWith(valuePair());
         return RedisCacheManager.builder(factory)
                 .withCacheConfiguration("userToken",configuration1)
                 .withCacheConfiguration("vCode",configuration2)
                 .withCacheConfiguration("stock:all1",configuration3)
                 .withCacheConfiguration("stock:all2",configuration4)
                 .withCacheConfiguration("stock:info",configuration5)
+                .withCacheConfiguration("adminToken",configuration6)
                 .build();
     }
 

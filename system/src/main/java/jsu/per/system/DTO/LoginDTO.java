@@ -15,5 +15,7 @@ public class LoginDTO {
     private String username;
     @NotBlank(message = "密码不能为空")
     private String password;
+    //0:管理员 1:用户
+    private int type;
 
 }

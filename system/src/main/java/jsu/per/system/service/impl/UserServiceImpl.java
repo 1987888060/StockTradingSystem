@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void deleteUser(User user) {
-        userMapper.updateById(user);
+        userMapper.deleteById(user.getId());
     }
 
     /**

@@ -1,13 +1,16 @@
 package jsu.per.system.shiro;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthToken extends UsernamePasswordToken {
     private String token;
-
-    public AuthToken(String token) {
-        this.token = token;
-    }
+    private int type;
 
     @Override
     public Object getPrincipal() {

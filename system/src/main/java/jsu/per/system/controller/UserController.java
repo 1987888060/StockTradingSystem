@@ -2,6 +2,7 @@ package jsu.per.system.controller;
 
 import jsu.per.system.DTO.LoginDTO;
 import jsu.per.system.DTO.UserDTO;
+import jsu.per.system.pojo.Login;
 import jsu.per.system.pojo.User;
 import jsu.per.system.pojo.WalletRecord;
 import jsu.per.system.result.JsonResult;
@@ -474,8 +475,8 @@ public class UserController {
         json.setCode("200");
         json.setMsg("操作成功");
 
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        int userid = user.getId();
+        Login login = (Login)SecurityUtils.getSubject().getPrincipal();
+        int userid = login.getId();
 
         walletService.saving(userid,money);
 
@@ -503,8 +504,8 @@ public class UserController {
         json.setCode("200");
         json.setMsg("操作成功");
 
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        int userid = user.getId();
+        Login login = (Login)SecurityUtils.getSubject().getPrincipal();
+        int userid = login.getId();
 
         boolean remove = walletService.remove(userid, money);
         if (remove){
@@ -538,8 +539,8 @@ public class UserController {
         JsonResult<Double> json = new JsonResult<>();
         json.setCode("200");
         json.setMsg("操作成功");
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        int userid = user.getId();
+        Login login = (Login)SecurityUtils.getSubject().getPrincipal();
+        int userid = login.getId();
 
         double money = walletService.getMoney(userid);
         json.setData(money);

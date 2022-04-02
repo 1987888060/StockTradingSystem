@@ -1,7 +1,10 @@
 package jsu.per.system.config;
 
-import jsu.per.system.shiro.AuthFilter;
-import jsu.per.system.shiro.UserRealm;
+import jsu.per.system.shiro.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy;
+import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -11,34 +14,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 
 @Configuration
 public class ShiroConfig {
 
-    /**
-     * 注入自定义权限验证对象
-     */
-//    @Bean
-//    public UserRealm userRealm() {
-//        return new UserRealm();
-//    }
 
-    /**
-     * SecurityManager是Shiro框架的核心，典型的Facade模式，
-     * Shiro通过SecurityManager来管理内部组件实例，并通过它来提供安全管理的各种服务
-     * 将自定义Realm 注入进SecurityManager
-     */
     @Bean("securityManager")
-    public DefaultWebSecurityManager securityManager(UserRealm userRealm) {
+    public DefaultWebSecurityManager securityManager1(AuthRealm authRealm) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userRealm);
+        securityManager.setRealm(authRealm);
         securityManager.setRememberMeManager(null);
         return securityManager;
     }
+
 
     @Bean("shiroFilterFactoryBean")
     public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
@@ -47,14 +37,17 @@ public class ShiroConfig {
         //auth过滤
         Map<String, Filter> filters = new HashMap<>();
         filters.put("auth", new AuthFilter());
+
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
         filterMap.put("/druid/**", "anon");
         filterMap.put("/user/login.do", "anon");
+        filterMap.put("/admin/login.do", "anon");
         filterMap.put("/user/register.do","anon");
         filterMap.put("/user/sendVerificationCode.do","anon");
         filterMap.put("/user/logout.do","anon");
+        filterMap.put("/admin/logout.do", "anon");
         filterMap.put("/swagger/**", "anon");
         filterMap.put("/swagger-ui.html", "anon");
         filterMap.put("/swagger-resources/**", "anon");
