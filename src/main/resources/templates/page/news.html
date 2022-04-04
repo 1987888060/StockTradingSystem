@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>新闻详情界面</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="/css/layuimini.css?v=2.0.1" media="all">
+    <link rel="stylesheet" href="/css/themes/default.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <style id="layuimini-bg-color">
+    </style>
+    <script src="/jquery/jquery-1.10.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+</head>
+
+<style>
+    .layui-form-item .layui-input-company {
+        width: auto;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <img src="/images/00.png" class="d-block w-40" height="80px" alt="...">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse ml-5 mr-5" id="navbarNav" style="font-size: 18px;">
+                        <ul class="navbar-nav  ml-5 mt-1 mr-5">
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="/">网站首页 <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="/toDapan">大盘详情</a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="page/news">新闻中心</a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="/toReg">用户注册</a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="/toIndex">个人交易中心</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="layui-form-item">
+                <div class="branding branding-sm branding-primary branding-mt0 branding-mb"
+                     style="background-color:#737e82;text-align:center;">
+                    <div class="container">
+                        <h1>配资百科-股票配资最新技术支持</h1>
+                        <div class="note"><span style="font-size: 16px">股票配资是随着金融市场的发展应运而生:在股票市场上,资金持有者和资金需求者通过一定的模式结合起来,共同发展,逐渐就形成了股票配资这个新型的融资模式。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8" id="myMainContent">
+                            <div class="card mb-3" style="max-width: 100%;">
+                                <div class="row no-gutters" id="app">
+                                    <!--js加载数据-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card mr-0" style="max-width: 100%;">
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4 ">
+                                        <img src="/images/1.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">现在股市量大板块适合配资嘛?</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="border-bottom:1px solid #CCC " class="w-100"></div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/2.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">资金动态：尤其以股市中的北向资金为动态</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border-bottom:1px solid #CCC " class="w-100"></div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/3.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">股市配资：股票线上的优点多吗?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/4.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">炒股配资：股票尾盘放量拉伸如果砸盘咋办?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/5.png" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">炒股导航：炒股赔钱的几个重要因素?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        layui.use(['form', 'jquery', 'miniPage'], function () {
+            var miniPage = layui.miniPage
+                , layer = layui.layer
+                , $ = layui.jquery;
+
+            $.get("http://localhost:8080/newsinfo", resu => {
+                let data = resu.data;
+                for (let i = 0; i < data.length; i++) {
+                    $("#app").append(`<div class="col-md-4">
+                            <img src="${data[i]['img_addr']}" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 onclick="" data-id=${i} class="card-title center-title">${data[i]['title']}</h5>
+                                <p class="card-text"><small class="text-muted">${data[i]['note']}</small></p>
+                            </div>
+                        </div>`)
+                }
+                /*事件委托对象*/
+                $("#app").on("click", ".center-title", function () {
+                    var index = $(this).data('id')
+                    window.sessionStorage.setItem("json", JSON.stringify(data[index]));
+                    console.log(data[index])
+                    /*var url = '/page/to_info'
+                    window.location.href = url;*/
+                    window.open('_blank').location = '/page/to_info'
+                })
+            })
+        });
+    })
+</script>

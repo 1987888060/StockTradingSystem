@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxy.mapper.UserHaveStocksMapper">
+    <delete id="sellStock">
+        delete
+        from user_buy_stock
+        where stock_id = #{id}
+    </delete>
+    <select id="selectAll" resultType="com.zxy.entity.Stocks">
+        select s_list.id, s_list.daima, s_list.mingcheng, s_list.zuoshou, s_list.shiyinglv, s_list.price,
+               s_list.head,s_list.date
+        from s_user
+                 join user_buy_stock ubs
+                      on s_user.id = ubs.user_id
+                 join s_list
+                      on s_list.id = ubs.stock_id
+        where s_user.id = #{id}
+    </select>
+</mapper>

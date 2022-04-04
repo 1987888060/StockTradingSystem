@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxy.mapper.UserMapper">
+    <update id="update">
+        update s_user
+        set password = #{password},
+            balance  = #{balance}
+        where username = #{username}
+    </update>
+    <select id="login" resultType="com.zxy.entity.User">
+        select *
+        from s_user
+        where username = #{username}
+          and password = #{password};
+    </select>
+    <select id="info" resultType="com.zxy.entity.User">
+        select *
+        from s_user
+        where username = #{username}
+    </select>
+    <!--休市-->
+    <update id="upxiu">
+        UPDATE s_user
+        set stock_nums=1
+        where stock_nums!=1;
+    </update>
+    <!--开市-->
+    <update id="upkai">
+        UPDATE s_user
+        set stock_nums=0
+        where stock_nums!=0;
+    </update>
+    <!-- 获取用户总数 -->
+    <select id="getTotal" resultType="Integer">
+        SELECT count(*)
+        FROM s_user;
+    </select>
+    <!-- 获取用户list 这里的  #{start} 中 start 必须要与 @Param("start") 中的 start 名字一样 否则无法传入参数   #{count}同理-->
+    <select id="list" resultType="com.zxy.entity.User">
+        select *
+        from s_user
+        order by id asc
+    </select>
+</mapper>

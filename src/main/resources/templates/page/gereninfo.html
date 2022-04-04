@@ -1,0 +1,59 @@
+<style>
+    .layui-form-item .layui-input-company {
+        width: auto;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户ID</label>
+                <div class="layui-input-inline layui-input-company"><span id="infoid">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux">ID作为你的唯一标识，不可修改</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline layui-input-company"><span id="nickname">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux">昵称作为你的唯一标识，不可修改</div>
+            </div>
+            <!--<div class="layui-form-item">
+                <label class="layui-form-label">当前持有股数</label>
+                <div class="layui-input-inline layui-input-company"><span id="stock_nums">数据待处理</span></div>
+                &lt;!&ndash;<div class="layui-form-mid layui-word-aux">ID作为你的唯一标识，不可修改，数据有bug，待处理</div>&ndash;&gt;
+            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建时间</label>
+                <div class="layui-input-inline layui-input-company"><span id="create_time">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux">当前内容不可修改</div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">余额</label>
+                <div class="layui-input-inline layui-input-company"><span id="balance">数据待处理</span></div>
+                <!--<div class="layui-form-mid layui-word-aux">ID作为你的唯一标识，不可修改</div>-->
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , $ = layui.jquery;
+
+        var name = sessionStorage.getItem("userInfo")
+        console.log(name)
+        $.post("http://localhost:8080/info",{
+            username:name
+        },data=>{
+            // 回调函数
+            $("#infoid").text(data.data.id);
+            $("#nickname").text(sessionStorage.getItem("userInfo"))
+            $("#create_time").text(data.data.create_time);
+            $("#balance").text(data.data.balance);
+            console.log(data.data.id)
+        })
+
+    });
+</script>

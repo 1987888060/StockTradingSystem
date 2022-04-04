@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>基于Spring boot的股票模拟交易平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="/css/layuimini.css?v=2.0.1" media="all">
+    <link rel="stylesheet" href="/css/themes/default.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <style id="layuimini-bg-color"></style>
+    <script src="/jquery/jquery-1.10.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+</head>
+<script src="/jquery/jquery-1.10.1.min.js"></script>
+<style>
+    .layui-form-item .layui-input-company {
+        width: auto;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+    .footer {
+        position: relative;
+        z-index: 9;
+        clear: both;
+        padding: 20px 30px;
+        font-size: 12px;
+        line-height: 12px;
+        text-align: center;
+        color: #999;
+        background-color: #23282d
+    }
+    .footer a {
+        color: #999
+    }
+    .footer a:hover {
+        color: #666
+    }
+    .footer-menu {
+        text-align: left;
+        margin: 0 -2% 30px 0;
+        padding-bottom: 30px;
+        overflow: hidden;
+        border-bottom: 1px solid #494949
+    }
+    .footer-menu dl {
+        width: 14.666666666%;
+        margin: 0 2% 0 0;
+        display: inline-block;
+        vertical-align: top
+    }
+    .footer-menu dt {
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 10px;
+        height: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <img src="/images/00.png" class="d-block w-40" height="80px" alt="...">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse ml-5 mr-5" id="navbarNav" style="font-size: 18px;">
+                        <ul class="navbar-nav  ml-5 mt-1 mr-5">
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="#">网站首页 <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="zixun" role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    股票资讯
+                                </a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="#">股票指南</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="xinwen" role="button"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    股票新闻
+                                </a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="#">外汇资讯</a>
+                            </li>
+                            <li class="nav1 nav-item">
+                                <a class="nav-link" href="#">期货资讯</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="layui-form-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8" id="myMainContent">
+                            <div class="card mb-3" style="max-width: 100%;">
+                                <div class="row no-gutters" id="title">
+                                    <!--js加载数据-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card mr-0" style="max-width: 100%;">
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4 ">
+                                        <img src="/images/1.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">现在股市量大板块适合配资嘛?</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div style="border-bottom:1px solid #CCC " class="w-100"></div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/2.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">资金动态：尤其以股市中的北向资金为动态</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="border-bottom:1px solid #CCC " class="w-100"></div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/3.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">股市配资：股票线上的优点多吗?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/4.jpg" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">炒股配资：股票尾盘放量拉伸如果砸盘咋办?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters mt-2 mb-2">
+                                    <div class="col-md-4">
+                                        <img src="/images/5.png" class="d-block w-40" height="80px" alt="..."
+                                             style="width: 120px;height: 80px">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a style="font-size: 14px;" onmouseover="this.style.color='red'"
+                                               onmouseleave="this.style.color='black'">炒股导航：炒股赔钱的几个重要因素?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="layuimini-container layuimini-page-anim">
+    <footer class="footer">
+        <div class="container">
+            <p>Copyright @ 2011-2019 股票配资新闻资讯站 All Rights Reserved.版权所有  合作邮箱: admin@qq.com</p>
+            <p>备案号：xxxxxxx备案号 <a href="http://www.number168.com/" target="_blank">在线配资</a></p>
+        </div>
+    </footer>
+</div>
+<script>
+    var data = JSON.parse(window.sessionStorage.getItem("json"))
+    // $("#age").text(age);
+    $("#title").append('<h1> ' + data['title'] + '</h1>'
+        + '<img src="' + data['img_addr'] + '"> '
+        + '<p> ' + data['article_info'] + '</p>'
+    )
+</script>
