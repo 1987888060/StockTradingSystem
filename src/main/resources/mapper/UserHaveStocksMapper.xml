@@ -9,11 +9,9 @@
     <select id="selectAll" resultType="com.zxy.entity.Stocks">
         select s_list.id, s_list.daima, s_list.mingcheng, s_list.zuoshou, s_list.shiyinglv, s_list.price,
                s_list.head,s_list.date
-        from s_user
-                 join user_buy_stock ubs
-                      on s_user.id = ubs.user_id
+        from user_buy_stock
                  join s_list
-                      on s_list.id = ubs.stock_id
-        where s_user.id = #{id}
+                      on user_buy_stock.stock_id = s_list.id
+        where user_buy_stock.user_id = #{id}
     </select>
 </mapper>

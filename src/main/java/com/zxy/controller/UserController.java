@@ -51,7 +51,6 @@ public class UserController {
 	}
 
 	//@ApiOperation ("修改列表数据")
-	// @PutMapping ("/upd")
 	@RequestMapping ("/upd")
 	public ResultData upprChoose(@RequestBody User user) {
 		boolean update = userService.updateById(user);
@@ -63,7 +62,6 @@ public class UserController {
 	}
 
 	//@ApiOperation ("添加列表数据")
-	//@PostMapping ("/save")
 	@RequestMapping ("/save")
 	public ResultData add(@RequestBody User user) {
 		boolean save = userService.save(user);

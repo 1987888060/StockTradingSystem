@@ -1,6 +1,8 @@
 package com.zxy.controller;
 
+import com.zxy.entity.Admin;
 import com.zxy.entity.User;
+import com.zxy.service.AdminService;
 import com.zxy.service.UserService;
 import com.zxy.vo.ResultData;
 import org.apache.ibatis.annotations.Param;
@@ -24,6 +26,9 @@ public class LoginController {
 	@Autowired
 	private UserService service;
 
+	@Autowired
+	private AdminService adminService;
+
 	/**
 	 * 用户登录
 	 * <p>
@@ -45,42 +50,20 @@ public class LoginController {
 		}
 
 	}
-	//Lu 4.11 up
-	// @PostMapping ("/tologin")
-	// @RequestMapping ("/tologin")
-	// public String login(String username,String password, Model model) {
-	// public String login(User user, HttpServletRequest request) {
-	// 	System.out.println("name="+username);
-	// 	System.out.println("password="+password);
-	// 	// String username=request.getParameter("username");
-	// 	// String password=request.getParameter("password");
-	// 	/**
-	// 	 * 使用Shiro编写验证操作
-	// 	 */
-	// 	//1获取Subject
-	// 	Subject subject = SecurityUtils.getSubject();
-	//
-	// 	//2.封装用户数据
-	// 	UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-	//
-	// 	//3.执行登录方法
-	// 	try {
-	// 		//登录成功
-	// 		subject.login(token);
-	// 		return "redirect:/toIndex";
-	// 	} catch (UnknownAccountException e) {
-	// 		// e.printStackTrace();
-	// 		//登录失败：用户名不存在
-	// 		model.addAttribute("msg", "用户名不存在");
-	// 		return "/login";
-	// 	} catch (IncorrectCredentialsException e) {
-	// 		// e.printStackTrace();
-	// 		//登陆失败：密码错误
-	// 		model.addAttribute("msg", "密码错误");
-	// 		return "/login";
-	// 	}
-	// }
-	//Lu 4.11 up END
+
+	@PostMapping ("/login1")
+	public ResultData adminlogin(Admin admin, HttpServletRequest request) {
+		try {
+			Admin resu = adminService.login(admin);
+			System.out.println(resu);
+			request.getSession().setAttribute("admin", resu);
+			return ResultData.success(1, resu);
+		} catch (
+				Exception e) {
+			return ResultData.fail(e.getMessage());
+		}
+
+	}
 
 	/**
 	 * 用户注册
@@ -124,5 +107,8 @@ public class LoginController {
 		}
 		return ResultData.fail("更新失败，请联系网站管理员");
 	}
+
+
+
 
 }

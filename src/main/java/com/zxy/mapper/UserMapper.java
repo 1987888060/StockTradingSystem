@@ -21,12 +21,10 @@ public interface UserMapper extends BaseMapper<User> {
     void upkai();
     //休市
     void upxiu();
-    /**
-     * 没有用到
-     * @param user
-     * @return
-     */
+
     Integer update(User user);
+
+    Integer updateBalance(User user);
 
     @Select("select * from s_user where username = #{username}")
     User findUserByName(String username);

@@ -65,6 +65,7 @@ public class GouController {
 			return ResultData.fail("添加失败");
 		}
 	}
+
 	//购买股票数量
 	@PutMapping("add")
 	public ResultData addShuliang(@RequestBody Gou gou){

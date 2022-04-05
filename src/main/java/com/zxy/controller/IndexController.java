@@ -27,6 +27,15 @@ public class IndexController {
     }
 
     /**
+     * 进入登录页面
+     * @return
+     */
+    @RequestMapping("/login1")
+    public String toLogin1() {
+        return "login1";
+    }
+
+    /**
      * 进入注册页面
      * @return
      */

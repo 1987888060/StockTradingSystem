@@ -4,7 +4,11 @@
     <update id="update">
         update s_user
         set password = #{password},
-            balance  = #{balance}
+        where username = #{username}
+    </update>
+    <update id="updateBalance">
+        update s_user
+        set balance  = #{balance}
         where username = #{username}
     </update>
     <select id="login" resultType="com.zxy.entity.User">

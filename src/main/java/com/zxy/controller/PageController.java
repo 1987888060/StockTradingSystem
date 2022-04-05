@@ -133,4 +133,8 @@ public class PageController {
 	}
 
 
+	@RequestMapping ("/buy_stock")
+	public String buyStock() {
+		return "page/buy_stock";
+	}
 }

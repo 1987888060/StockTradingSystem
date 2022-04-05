@@ -16,14 +16,14 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         }],
         cols: [[
             {type: "numbers", width: 50, title: "序号"},
-            {field: 'id', width: 120, title: 'ID'},
-            {field: 'daima', width: 120, title: '代码号'},
+            {field: 'id', width: 50, title: 'ID'},
+            {field: 'daima', width: 120, title: '股票代码'},
             {field: 'mingcheng', width: 150, title: '名称'},
             {field: 'zuoshou', width: 120, title: '昨收'},
-            {field: 'shiyinglv', title: '市盈率', minWidth: 150},
+            {field: 'shiyinglv', title: '市盈率', width: 120},
             {field: 'price', width: 120, title: '价格'},
-            {field: 'head', width: 150, title: '数量(文本输入)',edit: 'text'},
-            {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            {field: 'head', width: 120, title: '数量',edit: 'text'},
+            {title: '操作', minWidth: 200, toolbar: '#currentTableBar', align: "center"}
         ]],
         limits: [10, 15, 20, 25, 50, 100],
         limit: 15,
@@ -35,7 +35,17 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         var data = obj.data; // data是数据
         console.log(JSON.stringify(data))
 
-        if (obj.event === 'dile') {
+        if (obj.event === 'delete') {
+            // 处理Ajax请求，发送到后台进行卖出
+            if (obj.event === 'buy') {
+                //跳转到购买页面
+                sessionStorage.setItem("stockcode", data.daima)
+                sessionStorage.setItem("stockname", data.mingcheng)
+                window.parent.location.href = "/page/index#//page/buy_stock"
+            }
+        }
+
+        if (obj.event === 'delete1') {
             // 处理Ajax请求，发送到后台进行卖出
             layer.confirm('是否抛出全部',{
                 icon:3,
@@ -91,5 +101,44 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
             )
         }
     });
-
+    table.on('tool(currentTableFilter)', function (obj) {
+        console.log(obj)
+        var data = obj.data; // data是数据
+        console.log(JSON.stringify(data))
+        if (obj.event === 'edit') {
+            // 处理Ajax请求，发送到后台进行购买
+            layer.confirm('是否要购买', {
+                icon: 3,
+                title: '提示'
+            }, function (index) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/buy_stock",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (resu) {
+                        console.log(resu)
+                    },
+                    error: function (err) {
+                        console.log(err)
+                    }
+                })
+                layer.close(index)
+            })
+        }
+        if (obj.event === 'sh') {
+            // 股票实时分析图
+            window.location.href = `http://image.sinajs.cn/newchart/daily/n/sh${data.daima}.gif`
+        }else if(obj.event === 'sh2') {
+            // 股票实时分析图
+            window.location.href = `http://image.sinajs.cn/newchart/weekly/n/sh${data.daima}.gif`
+        }else if(obj.event === 'sh3') {
+            // 股票实时分析图
+            window.location.href = `http://image.sinajs.cn/newchart/monthly/n/sh${data.daima}.gif`
+        }else if(obj.event === 'sh4') {
+            // 股票实时分析图
+            window.location.href = `http://image.sinajs.cn/newchart/min/n/sh${data.daima}.gif`
+        }
+    });
 });

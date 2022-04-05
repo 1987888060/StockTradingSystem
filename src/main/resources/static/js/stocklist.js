@@ -72,7 +72,7 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         console.log(obj)
         var data = obj.data; // data是数据
         console.log(JSON.stringify(data))
-        if (obj.event === 'edit') {
+        if (obj.event === 'pick') {
             // 处理Ajax请求，发送到后台进行购买
             layer.confirm('是否要购买', {
                 icon: 3,
@@ -93,6 +93,12 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
                 })
                 layer.close(index)
             })
+        }
+        if (obj.event === 'buy') {
+            //跳转到购买页面
+            sessionStorage.setItem("stockcode", data.daima)
+            sessionStorage.setItem("stockname", data.mingcheng)
+            window.parent.location.href = "/page/index#//page/buy_stock"
         }
         if (obj.event === 'sh') {
             // 股票实时分析图
