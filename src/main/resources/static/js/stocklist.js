@@ -17,19 +17,19 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         cols: [[
             {type: "numbers", width: 50, title: "序号"},
             {field: 'id', width: 140, title: 'ID'},
-            {field: 'daima', width: 140, title: '代码号'},
-            {field: 'mingcheng', width: 150, title: '名称'},
-            {
-                field: 'zuoshou', width: 140, title: '昨收', templet: function (data) {
-                    return "<span style='color: green'>" + data.zuoshou + "</span>"
-                }
-            },
-            {field: 'shiyinglv', title: '市盈率', minWidth: 120},
-            {
-                field: 'price', width: 80, title: '价格', templet: function (data) {
-                    return "<span style='color: red'>" + data.price + "</span>"
-                }
-            },
+            {field: 'code', width: 140, title: '代码号'},
+            {field: 'name', width: 150, title: '名称'},
+            // {
+            //     field: 'zuoshou', width: 140, title: '昨收', templet: function (data) {
+            //         return "<span style='color: green'>" + data.zuoshou + "</span>"
+            //     }
+            // },
+            // {field: 'shiyinglv', title: '市盈率', minWidth: 120},
+            // {
+            //     field: 'price', width: 80, title: '价格', templet: function (data) {
+            //         return "<span style='color: red'>" + data.price + "</span>"
+            //     }
+            // },
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
         ]],
         limits: [10, 15, 20, 25, 50, 100],
@@ -74,16 +74,19 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         console.log(JSON.stringify(data))
         if (obj.event === 'pick') {
             // 处理Ajax请求，发送到后台进行购买
-            layer.confirm('是否要购买', {
+            layer.confirm('是否要选择', {
                 icon: 3,
                 title: '提示'
             }, function (index) {
                 $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8080/buy_stock",
+                    type: "GET",
+                    url: "http://localhost:8080/pick_stock",
                     dataType: "json",
                     contentType: "application/json",
-                    data: JSON.stringify(data),
+                    data: {
+                        username: sessionStorage.getItem("userInfo"),
+                        code: data.code,
+                    },
                     success: function (resu) {
                         console.log(resu)
                     },
@@ -92,26 +95,32 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
                     }
                 })
                 layer.close(index)
+                window.parent.location.href = "/page/index#//page/stocklist"
             })
         }
         if (obj.event === 'buy') {
             //跳转到购买页面
-            sessionStorage.setItem("stockcode", data.daima)
-            sessionStorage.setItem("stockname", data.mingcheng)
+            sessionStorage.setItem("stockcode", data.code)
+            sessionStorage.setItem("stockname", data.name)
             window.parent.location.href = "/page/index#//page/buy_stock"
+        }
+        if (obj.event === 'info'){
+            //跳转到购买页面
+            sessionStorage.setItem("stockcode", data.code)
+            window.parent.location.href = "/page/index#//page/stockinfo"
         }
         if (obj.event === 'sh') {
             // 股票实时分析图
-            window.location.href = `http://image.sinajs.cn/newchart/daily/n/sh${data.daima}.gif`
+            window.location.href = `http://image.sinajs.cn/newchart/daily/n/${data.code}.gif`
         }else if(obj.event === 'sh2') {
             // 股票实时分析图
-            window.location.href = `http://image.sinajs.cn/newchart/weekly/n/sh${data.daima}.gif`
+            window.location.href = `http://image.sinajs.cn/newchart/weekly/n/${data.code}.gif`
         }else if(obj.event === 'sh3') {
             // 股票实时分析图
-            window.location.href = `http://image.sinajs.cn/newchart/monthly/n/sh${data.daima}.gif`
+            window.location.href = `http://image.sinajs.cn/newchart/monthly/n/${data.code}.gif`
         }else if(obj.event === 'sh4') {
             // 股票实时分析图
-            window.location.href = `http://image.sinajs.cn/newchart/min/n/sh${data.daima}.gif`
+            window.location.href = `http://image.sinajs.cn/newchart/min/n/${data.code}.gif`
         }
     });
 });

@@ -14,6 +14,7 @@
                            class="layui-input" disabled>
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">股票代码</label>
                 <div class="layui-input-block">
@@ -36,7 +37,7 @@
                            class="layui-input" disabled>
                 </div>
             </div>
-            <!--            Lu 4.12 up END-->
+
             <div class="layui-form-item">
                 <label class="layui-form-label">购买数量</label>
                 <div class="layui-input-block">
@@ -44,6 +45,7 @@
                            class="layui-input"  >
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <div class="layui-input-block">
                     <button class="layui-btn" lay-submit="" lay-filter="demo1">购买</button>
@@ -62,11 +64,10 @@
         form.on('submit(demo1)', function (data) {
             data = data.field
             console.log(data);
-            // $.post("http://localhost:8080/user/upd", {
             $.post("http://localhost:8080/buy_stock", {
                 stockcode: data.stockcode,
-                num: data.num,
-                username: data.username,
+                num: data.number,
+                username: sessionStorage.getItem("userInfo"),
                 //Lu 4.12 up END
                 success: function (resu) {
                     console.log(resu)
@@ -79,19 +80,19 @@
             }, resu => {
                 layer.open({
                     type:1,
-                    content:"修改成功，请重新登录",
+                    content:"购买成功",
                     area: ['200px', '100px']
                 })
                 // 函数回调
                 console.log(resu)
+                window.parent.location.href = "/page/index#//page/stocklist"
             })
             return false;
         });
 
         //表单初始赋值
         form.val('example', {
-            "username": sessionStorage.getItem("userInfo") // "name": "value"
-            , "balance": "500000",
+            "balance": "500000",
             "number":100,
             "stockname":sessionStorage.getItem("stockname"),
             "stockcode":sessionStorage.getItem("stockcode")

@@ -1,20 +1,20 @@
 package com.zxy.controller;
 
-import com.alibaba.fastjson.JSON;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zxy.entity.*;
 import com.zxy.service.*;
-import com.zxy.util.PageUtil;
+
 import com.zxy.vo.ResultData;
-import org.apache.ibatis.annotations.Param;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.crypto.Data;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,6 +42,14 @@ public class StockListController {
 	@Autowired
 	private StockService stockService;
 
+	@Autowired
+	private HistoryTradeService historyTradeService;
+
+	@Autowired
+	private PickedStockService pickedStockService;
+
+	@Autowired
+	private StockSimService  stockSimService;
 	// @RequestMapping ("/stock_list")
 	// public ResultData stock_lists(Integer page, Integer limit) {
 	// 	System.out.println("page = " + page + ", limit = " + limit);
@@ -59,26 +67,51 @@ public class StockListController {
 	// 		return ResultData.fail("数据接口异常，请联系管理员");
 	// 	}
 	// }
+//	@RequestMapping("/stock_list")
+//	public ResultData stock_lists(Integer page, Integer limit, String daima) {
+//		// 构造后的翻页数量
+//		Page<Stock_List> stock_listPage = new Page<>(page, limit);
+//		// 翻页后的记录数
+//		if (daima != null) {
+//			QueryWrapper<Stock_List> wrapper = new QueryWrapper<>();
+//			wrapper.eq("daima", daima);
+//			List<Stock_List> records = stockListService.page(stock_listPage, wrapper).getRecords();
+//			return ResultData.success(0, stockListService.page(stock_listPage, wrapper).getTotal(), records);
+//		} else {
+//			List<Stock_List> records = stockListService.page(stock_listPage).getRecords();
+//			System.out.println("数量：" + records.size());
+//			if (records != null) {
+//				return ResultData.success(0, stockListService.page(stock_listPage).getTotal(), records);
+//			} else {
+//				return ResultData.fail("数据接口异常，请联系管理员");
+//			}
+//		}
+//	}
+
 	@RequestMapping("/stock_list")
 	public ResultData stock_lists(Integer page, Integer limit, String daima) {
 		// 构造后的翻页数量
-		Page<Stock_List> stock_listPage = new Page<>(page, limit);
+		Page<StockSim> stockSimPage = new Page<>(page, limit);
 		// 翻页后的记录数
 		if (daima != null) {
-			QueryWrapper<Stock_List> wrapper = new QueryWrapper<>();
-			wrapper.eq("daima", daima);
-			List<Stock_List> records = stockListService.page(stock_listPage, wrapper).getRecords();
-			return ResultData.success(0, stockListService.page(stock_listPage, wrapper).getTotal(), records);
+			QueryWrapper<StockSim> wrapper = new QueryWrapper<>();
+			wrapper.like("code",daima);
+			List<StockSim> records = stockSimService.page(stockSimPage, wrapper).getRecords();
+			return ResultData.success(0, stockSimService.page(stockSimPage, wrapper).getTotal(), records);
 		} else {
-			List<Stock_List> records = stockListService.page(stock_listPage).getRecords();
+			List<StockSim> records = stockSimService.page(stockSimPage).getRecords();
 			System.out.println("数量：" + records.size());
 			if (records != null) {
-				return ResultData.success(0, stockListService.page(stock_listPage).getTotal(), records);
+				return ResultData.success(0, stockSimService.page(stockSimPage).getTotal(), records);
 			} else {
 				return ResultData.fail("数据接口异常，请联系管理员");
 			}
 		}
 	}
+
+
+
+
 	/**
 	 * 买股票
 	 *
@@ -105,8 +138,39 @@ public class StockListController {
 
 		if (total<=balance){
 			user.setBalance(balance - total);
-			userService.update(user);
+			userService.updateById(user);
 
+			UserBuyStock userBuyStock = new UserBuyStock();
+			userBuyStock.setStockcode(stockcode);
+			userBuyStock.setUsername(username);
+			userBuyStock.setNum(num);
+
+
+			//进行记录
+			HistoryTrade trade = new HistoryTrade();
+			//股票代码
+			trade.setStockcode(stock.getCode());
+			//股票名
+			trade.setStockname(stock.getName());
+			//交易数量
+			trade.setNum(num);
+			//交易额
+			trade.setVolume(total);
+			//交易单价
+			trade.setPrice(price);
+			//who
+			trade.setUserid(user.getId());
+			//type buy
+			trade.setType(1);
+			//交易时间
+			trade.setTime(new Date(System.currentTimeMillis()));
+
+			historyTradeService.storage(trade);
+
+
+			userBuyStockService.insert(userBuyStock);
+
+			return ResultData.success("购买成功");
 		}else{
 			return ResultData.fail("购买失败，余额不足");
 		}
@@ -129,7 +193,6 @@ public class StockListController {
 //		} else {
 //
 //		}
-		return ResultData.fail("购买失败，余额不足");
 	}
 
 	/**
@@ -160,16 +223,6 @@ public class StockListController {
 		return ResultData.success(i);
 	}
 
-	/**
-	 * 获取管理页面用户list
-	 *
-	 * @return list
-	 */
-	@RequestMapping ("/list")
-	public User List(User user) {
-		User list = userService.list(user);
-		return list;
-	}
 
 
 	//@ApiOperation ("修改列表数据")
@@ -207,4 +260,12 @@ public class StockListController {
 			return ResultData.fail("购买失败");
 		}
 	}
+
+	@RequestMapping ("/pick_stock")
+	public ResultData pickStock(String username,String code) {
+		User info = userService.info(username);
+		pickedStockService.add(info.getId(),code);
+		return ResultData.success("自选成功");
+	}
+
 }

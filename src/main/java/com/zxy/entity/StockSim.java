@@ -10,16 +10,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "user_buy_stock")
-public class UserBuyStock {
-
-    @TableId(type = IdType.AUTO) // 主键自增策略
+@TableName("stock")
+public class StockSim {
+    @TableId(value = "id",type = IdType.AUTO)
     private Integer id;
-
-    private String username;
-
-    private String stockcode;
-
-    private Integer num;
-
+    //股票代码
+    private String name;
+    //股票名
+    private String code;
 }
