@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.crypto.Data;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,9 @@ public class StockListController {
 
 	@Autowired
 	private GupiaoService gupiaoService;
+
+	@Autowired
+	private StockService stockService;
 
 	// @RequestMapping ("/stock_list")
 	// public ResultData stock_lists(Integer page, Integer limit) {
@@ -78,34 +82,54 @@ public class StockListController {
 	/**
 	 * 买股票
 	 *
-	 * @param stocks 接收股票实体类信息
 	 * @return 返回购买后的信息
 	 */
 	@RequestMapping ("/buy_stock")
-	public ResultData BuyStock(@RequestBody Stocks stocks, HttpServletRequest request) {
-		System.out.println(stocks);
+	public ResultData BuyStock(String stockcode ,String username, int num, HttpServletRequest request) {
+
 		HashMap<String, Object> map = new HashMap<>();
-		// 先把当前账户的余额查询出来与接收到的股票信息价格进行对比
-		User admin = (User) request.getSession().getAttribute("user");
-		Float aFloat = Float.valueOf(stocks.getPrice());
-		// 重新请求数据库，拿到更新后的金额数据进行比较
-		User info = userService.info(admin.getUsername());
-		// 购买后股票数+1
-		if (info.getBalance() > aFloat) {
-			System.out.println(admin.getBalance());
-			System.out.println(aFloat);
-			map.put("status", true);
-			map.put("nums", 1);
-			// 购买成功后，让当前的用户金额减少，同时在当前的用户持有列表里面添加当前的股票购买数据
-			info.setBalance((int) (info.getBalance() - aFloat));
-			// 金额更新
-			userService.update(info);
-			userBuyStockService.insert(new UserBuyStock(info.getId(), stocks.getId()));
-			return ResultData.success(map);
-		} else {
+		// 先把当前账户的余额查询
+		User user = userService.info(username);
+		Double balance = user.getBalance();
+		//根据股票代码获取股票信息
+		Stock stock = null;
+		try {
+			stock = stockService.getStockByCode(stockcode);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return ResultData.fail("购买失败,系统错误");
+		}
+
+		Double price = Double.valueOf(stock.getPrice());
+		Double total = price*num;
+
+		if (total<=balance){
+			user.setBalance(balance - total);
+			userService.update(user);
+
+		}else{
 			return ResultData.fail("购买失败，余额不足");
 		}
 
+
+//		// 重新请求数据库，拿到更新后的金额数据进行比较
+//		User info = userService.info(admin.getUsername());
+//		// 购买后股票数+1
+//		if (info.getBalance() > aFloat) {
+//			System.out.println(admin.getBalance());
+//			System.out.println(aFloat);
+//			map.put("status", true);
+//			map.put("nums", 1);
+//			// 购买成功后，让当前的用户金额减少，同时在当前的用户持有列表里面添加当前的股票购买数据
+//			info.setBalance((int) (info.getBalance() - aFloat));
+//			// 金额更新
+//			userService.update(info);
+//			userBuyStockService.insert(new UserBuyStock(info.getId(), stocks.getId()));
+//			return ResultData.success(map);
+//		} else {
+//
+//		}
+		return ResultData.fail("购买失败，余额不足");
 	}
 
 	/**

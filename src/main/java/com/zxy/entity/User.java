@@ -26,7 +26,7 @@ public class User {
     private String create_time;
 
     @TableField(value = "balance")
-    private Integer balance;
+    private Double balance;
 
     @TableLogic
     @TableField(value = "is_delete")

@@ -46,7 +46,7 @@
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="demo1">购买</button>
                 </div>
             </div>
         </form>
@@ -63,13 +63,19 @@
             data = data.field
             console.log(data);
             // $.post("http://localhost:8080/user/upd", {
-            $.post("http://localhost:8080/changeinfo", {
-                id: data.id,
+            $.post("http://localhost:8080/buy_stock", {
+                stockcode: data.stockcode,
+                num: data.num,
                 username: data.username,
-                balance: data.balance,
-                //Lu 4.12 up
-                password: data.password,
                 //Lu 4.12 up END
+                success: function (resu) {
+                    console.log(resu)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+
             }, resu => {
                 layer.open({
                     type:1,

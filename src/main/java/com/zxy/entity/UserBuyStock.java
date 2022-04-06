@@ -20,8 +20,6 @@ public class UserBuyStock {
 
     private Integer stock_id;
 
-    public UserBuyStock(Integer user_id, Integer stock_id) {
-        this.user_id = user_id;
-        this.stock_id = stock_id;
-    }
+    private Integer num;
+
 }
