@@ -22,55 +22,53 @@
           "target": "_self"
         },
         {
-          "title": "股票列表",
-          "href": "/page/stocklist",
+          "title": "股票",
+          "href": "/page/stocklist1",
           "icon": "fa fa-th-list",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "股票信息",
+              "href": "/page/stockinfo",
+              "icon": "fa fa-th-list",
+              "target": "_self"
+            }
+
+          ]
         },
         {
           "title": "个人中心",
-          "href": "/page/gereninfo",
+          "href": "/page/gereninfo1",
           "icon": "fa fa-file-text",
           "target": "_self",
           "child": [
             {
               "title": "修改信息",
-              "href": "/page/changeinfo",
+              "href": "/page/changeinfo1",
               "icon": "fa fa-file-text",
-              "target": "_self"
-            },
-            {
-              "title": "持有股票列表",
-              "href": "/page/have_stock_list",
-              "icon": "fa fa-th-list",
-              "target": "_self"
-            },
-            {
-              "title": "自选",
-              "href": "/page/have_stock_list",
-              "icon": "fa fa-th-list",
-              "target": "_self"
-            },
-            {
-              "title": "钱包",
-              "href": "/page/have_stock_list",
-              "icon": "fa fa-th-list",
               "target": "_self"
             }
           ]
         },
         {
           "title": "交易记录",
-          "href": "/toGupiao",
+          "href": "/page/historytrade1",
           "icon": "fa fa-line-chart",
           "target": "_self"
         },
         {
-          "title": "管理中心",
-          "href": "/page/forecast",
+          "title": "用户管理中心",
+          "href": "/page/userlist",
           "icon": "fa fa-line-chart",
           "target": "_self"
+        },
+        {
+          "title": "新闻中心",
+          "href": "/page/news",
+          "icon": "fapa fa-line-chart",
+          "target": "_self"
         }
+
       ]
     }
   ]
