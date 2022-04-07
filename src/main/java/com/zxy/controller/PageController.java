@@ -137,4 +137,35 @@ public class PageController {
 	public String buyStock() {
 		return "page/buy_stock";
 	}
+
+	@RequestMapping ("/stockinfo")
+	public String stockInfo() {
+		return "page/stockinfo";
+	}
+
+	@RequestMapping ("/sell_stock")
+	public String sellStock() {
+		return "page/sell_stock";
+	}
+
+	@RequestMapping ("/picked")
+	public String pickedStock() {
+		return "page/picked";
+	}
+
+
+	@RequestMapping ("/balance")
+	public String balance() {
+		return "page/balance";
+	}
+
+	@RequestMapping ("/historytrade")
+	public String historytrade() {
+		return "page/historytrade";
+	}
+
+	@RequestMapping ("/adminindex")
+	public String adminindex() {
+		return "page/adminindex";
+	}
 }

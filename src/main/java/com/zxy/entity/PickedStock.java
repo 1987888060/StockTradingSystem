@@ -16,4 +16,5 @@ public class PickedStock {
     private Integer id;
     private int userid;
     private String code;
+    private String stockname;
 }

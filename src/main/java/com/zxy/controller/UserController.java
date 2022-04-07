@@ -9,6 +9,7 @@ import com.zxy.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -90,16 +91,34 @@ public class UserController {
 		return ResultData.success(0,userService.count(),list);
 	}
 
-	//休市
-	@RequestMapping("/xiu")
-	public ResultData upXiu(){
-		userService.upxiu();
-		return ResultData.success("已休市");
+	//充值
+	@RequestMapping("/recharge")
+	public ResultData recharge(double money, HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("user");
+
+		user = userService.info(user.getUsername());
+
+		user.setBalance(user.getBalance() + money);
+
+		userService.updateById(user);
+
+		return ResultData.success("充值成功",0,null);
 	}
-	//开市
-	@RequestMapping("/kai")
-	public ResultData upKai(){
-		userService.upkai();
-		return ResultData.success("已开市");
+
+	//提现
+	@RequestMapping("/withdrawal")
+	public ResultData withdrawal(double money, HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("user");
+
+		user = userService.info(user.getUsername());
+		if ((user.getBalance() - money)>=0){
+			user.setBalance(user.getBalance() - money);
+			userService.updateById(user);
+			return ResultData.success("提现成功",0,null);
+		}else {
+			return ResultData.fail("余额不足");
+		}
+
 	}
+
 }

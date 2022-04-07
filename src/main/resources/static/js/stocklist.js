@@ -86,6 +86,7 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
                     data: {
                         username: sessionStorage.getItem("userInfo"),
                         code: data.code,
+                        stockname:data.name,
                     },
                     success: function (resu) {
                         console.log(resu)
@@ -105,8 +106,9 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
             window.parent.location.href = "/page/index#//page/buy_stock"
         }
         if (obj.event === 'info'){
-            //跳转到购买页面
+            //跳转
             sessionStorage.setItem("stockcode", data.code)
+            sessionStorage.setItem("stockname", data.name)
             window.parent.location.href = "/page/index#//page/stockinfo"
         }
         if (obj.event === 'sh') {

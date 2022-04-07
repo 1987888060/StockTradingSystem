@@ -91,8 +91,9 @@ public class LoginController {
 	}
 
 	@PostMapping ("/changeinfo")
-	public ResultData changeinfo(User user) {
-		System.out.println("修改个人信息界面接收的参数：" + user);
+	public ResultData changeinfo(Integer  id,String password) {
+		User user = service.selectById(id);
+		user.setPassword(password);
 		Integer integer = service.update(user);
 		if (integer > 0) {
 			return ResultData.success(1, user);

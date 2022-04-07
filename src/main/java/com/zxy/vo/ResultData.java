@@ -14,7 +14,7 @@ public class ResultData {
     private Object data;
 
     public static ResultData success(Object data) {
-        return resultData(200, "消息返回成功", data);
+        return resultData(200, "执行成功", data);
     }
 
     public static ResultData success(long count, Object data) {

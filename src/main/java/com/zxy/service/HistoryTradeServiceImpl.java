@@ -2,7 +2,10 @@ package com.zxy.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zxy.entity.HistoryTrade;
+import com.zxy.entity.PickedStock;
 import com.zxy.mapper.HistoryTradeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,6 +82,20 @@ public class HistoryTradeServiceImpl implements HistoryTradeService {
         List list = historyTradeMapper.selectList(queryWrapper);
 
         return list;
+    }
+
+    @Override
+    public PageInfo<HistoryTrade> selectAll(Integer page, Integer limit, Integer userid) {
+        PageHelper.startPage(page,limit);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("userid",userid);
+        PageInfo<HistoryTrade> info = new PageInfo<HistoryTrade>(historyTradeMapper.selectList(queryWrapper));
+        return info;
+    }
+
+    @Override
+    public void remove(Integer id) {
+        historyTradeMapper.deleteById(id);
     }
 
 

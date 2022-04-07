@@ -1,7 +1,9 @@
 package com.zxy.service;
 
 
+import com.github.pagehelper.PageInfo;
 import com.zxy.entity.HistoryTrade;
+import com.zxy.entity.PickedStock;
 
 import java.util.List;
 
@@ -31,4 +33,8 @@ public interface HistoryTradeService {
 
     //读取 按照type
     List<HistoryTrade> readByType(int userid,int type);
+
+    PageInfo<HistoryTrade> selectAll(Integer page, Integer limit, Integer userid);
+
+    void remove(Integer id);
 }

@@ -2,7 +2,10 @@ package com.zxy.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zxy.entity.PickedStock;
+import com.zxy.entity.UserBuyStock;
 import com.zxy.mapper.PickedStockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +19,7 @@ public class PickedStockServiceImpl implements PickedStockService {
     PickedStockMapper pickedStockMapper;
 
     @Override
-    public void add(int userid,String code) {
+    public void add(int userid,String code,String stockname) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("userid",userid);
         queryWrapper.eq("code",code);
@@ -25,6 +28,7 @@ public class PickedStockServiceImpl implements PickedStockService {
             PickedStock pickedStock = new PickedStock();
             pickedStock.setUserid(userid);
             pickedStock.setCode(code);
+            pickedStock.setStockname(stockname);
             pickedStockMapper.insert(pickedStock);
         }
 
@@ -55,5 +59,14 @@ public class PickedStockServiceImpl implements PickedStockService {
 
         List list = pickedStockMapper.selectList(queryWrapper);
         return list;
+    }
+
+    @Override
+    public PageInfo<PickedStock> selectAll(Integer page, Integer limit, Integer userid) {
+        PageHelper.startPage(page,limit);
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("userid",userid);
+        PageInfo<PickedStock> info = new PageInfo<PickedStock>(pickedStockMapper.selectList(queryWrapper));
+        return info;
     }
 }

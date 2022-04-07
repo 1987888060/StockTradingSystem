@@ -20,6 +20,8 @@ public class UserBuyStock {
 
     private String stockcode;
 
+    private String stockname;
+
     private Integer num;
 
 }

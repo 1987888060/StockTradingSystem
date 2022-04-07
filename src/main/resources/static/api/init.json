@@ -35,7 +35,7 @@
             },
             {
               "title": "股票信息",
-              "href": "",
+              "href": "/page/stockinfo",
               "icon": "fa fa-th-list",
               "target": "_self"
             }
@@ -62,13 +62,19 @@
             },
             {
               "title": "自选",
-              "href": "",
+              "href": "/page/picked",
+              "icon": "fa fa-th-list",
+              "target": "_self"
+            },
+            {
+              "title": "出售",
+              "href": "/page/sell_stock",
               "icon": "fa fa-th-list",
               "target": "_self"
             },
             {
               "title": "钱包",
-              "href": "",
+              "href": "/page/balance",
               "icon": "fa fa-th-list",
               "target": "_self"
             }
@@ -76,8 +82,14 @@
         },
         {
           "title": "交易记录",
-          "href": "/toGupiao",
+          "href": "/page/historytrade",
           "icon": "fa fa-line-chart",
+          "target": "_self"
+        },
+        {
+          "title": "新闻中心",
+          "href": "/page/news",
+          "icon": "fapa fa-line-chart",
           "target": "_self"
         }
       ]

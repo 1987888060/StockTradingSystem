@@ -23,32 +23,32 @@
                 </div>
             </div>
             <!--            Lu 4.12 up-->
-            <div class="layui-form-item">
+            <div class="layui-form-item" >
                 <label class="layui-form-label">股票名</label>
                 <div class="layui-input-block">
                     <input type="text" name="stockname" lay-verify="title" autocomplete="off" placeholder=""
                            class="layui-input" disabled>
                 </div>
             </div>
-            <div class="layui-form-item" hidden>
-                <label class="layui-form-label">限购</label>
+            <div class="layui-form-item">
+                <label class="layui-form-label">持有</label>
                 <div class="layui-input-block">
-                    <input type="text" name="id" lay-verify="title" autocomplete="off" placeholder="请输入标题"
+                    <input type="text" name="have" lay-verify="title" autocomplete="off" placeholder="请输入标题"
                            class="layui-input" disabled>
                 </div>
             </div>
 
             <div class="layui-form-item">
-                <label class="layui-form-label">购买数量</label>
+                <label class="layui-form-label">出售数量</label>
                 <div class="layui-input-block">
-                    <input type="text" name="number" placeholder="请输入购买数量" autocomplete="off"
+                    <input type="text" name="number" placeholder="请输入出售数量" autocomplete="off"
                            class="layui-input"  >
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">购买</button>
+                    <button class="layui-btn" lay-submit="" lay-filter="demo1">出售</button>
                 </div>
             </div>
         </form>
@@ -64,7 +64,7 @@
         form.on('submit(demo1)', function (data) {
             data = data.field
             console.log(data);
-            $.post("http://localhost:8080/buy_stock", {
+            $.post("http://localhost:8080/sell_stock", {
                 stockcode: data.stockcode,
                 num: data.number,
                 username: sessionStorage.getItem("userInfo"),
@@ -92,6 +92,7 @@
 
         //表单初始赋值
         form.val('example', {
+            "have":sessionStorage.getItem("num"),
             "number":100,
             "stockname":sessionStorage.getItem("stockname"),
             "stockcode":sessionStorage.getItem("stockcode")

@@ -385,12 +385,8 @@
                         icon: 1, time: 1000
                     }, r => {
                         // 存储一个当前用户名
-                        // localStorage.setItem("userInfo",data.username)
-                        sessionStorage.setItem("userInfo", data.username)
-                        window.parent.location.href = "/page/index"
-                        //           Lu 4.11 up
-                        // window.parent.location.href = "/toIndex"
-                        //           Lu 4.11 up END
+                        sessionStorage.setItem("adminInfo", data.username)
+                        window.parent.location.href = "/page/adminindex"
                     })
                 }
                 if (resu.code == 500) {

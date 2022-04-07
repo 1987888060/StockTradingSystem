@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stock {
-    //股票代码
-    private String name;
     //股票名
+    private String name;
+    //股票代码
     private String code;
     //GP 股票 ZS 指数
     private String type;

@@ -18,10 +18,6 @@ class UserHaveStocksMapperTest {
     @Autowired
     private UserHaveStocksService userHaveStocksService;
 
-    @Test
-    void test() {
-        List<Stocks> stocks = mapper.selectAll(1);
-        stocks.forEach(stocks1 -> System.out.println(stocks1));
-    }
+
 
 }
