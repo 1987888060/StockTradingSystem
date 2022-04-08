@@ -1,0 +1,48 @@
+<style>
+    .layui-form-item .layui-input-company {
+        width: auto;
+        padding-right: 10px;
+        line-height: 38px;
+    }
+</style>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户ID</label>
+                <div class="layui-input-inline layui-input-company"><span id="infoid">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline layui-input-company"><span id="nickname">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">创建时间</label>
+                <div class="layui-input-inline layui-input-company"><span id="create_time">数据待处理</span></div>
+                <div class="layui-form-mid layui-word-aux"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , $ = layui.jquery;
+
+        var name = sessionStorage.getItem("adminInfo")
+        console.log(name)
+        $.post("http://localhost:8080/admin/admininfo",{
+            username:name
+        },data=>{
+            // 回调函数
+            $("#infoid").text(data.data.id);
+            $("#nickname").text(sessionStorage.getItem("adminInfo"))
+            $("#create_time").text(data.data.create_time);
+            console.log(data.data.id)
+        })
+
+    });
+</script>
