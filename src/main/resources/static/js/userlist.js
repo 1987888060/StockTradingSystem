@@ -32,12 +32,16 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
 
     $('#sear').on('click', function () {
         var send_name = $('#username').val();
+        $('#username').val('');
         // 搜索条件
         console.log("result：" + send_name)
-        if (send_name == '') {
+        if (send_name === '') {
             table.reload('tableone', {
                 method: 'post',
                 url: 'http://localhost:8080/user/list',
+                where: {
+                    'username': ""
+                },
                 page: {
                     curr: '1'
                 }
@@ -47,13 +51,15 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
                 method: 'post',
                 url: 'http://localhost:8080/user/list',
                 where: {
-                    'username': username
+                    'username': send_name
                 },
                 page: {
                     curr: '1'
                 }
             });
         }
+
+
 
     });
 
@@ -69,5 +75,29 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
             sessionStorage.setItem("id", data.id)
             window.parent.location.href = "/page/adminindex#//page/historytrade"
         }
+        if (obj.event === 'del'){
+            $.post("http://localhost:8080/user/deleteById", {
+                id:data.id,
+                //Lu 4.12 up END
+                success: function (resu) {
+                    console.log(resu)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+            }, resu => {
+                layer.open({
+                    type:1,
+                    content:resu.msg,
+                    area: ['200px', '100px']
+                })
+                // 函数回调
+                console.log(resu)
+                window.parent.location.href = "/page/adminindex#//page/userlist"
+            })
+            return false;
+        }
+
     });
 });

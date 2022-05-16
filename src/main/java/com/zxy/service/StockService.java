@@ -9,9 +9,13 @@ import java.util.List;
 
 
 public interface StockService  {
-    //获取所有股票信息
-    List<Stock> stock_lists() throws IOException;
 
     //获取单个
     Stock getStockByCode(String stockcode) throws IOException;
+
+    void insert(Stock stock);
+
+    void update(Stock stock);
+
+    void deleteByCode(String code);
 }

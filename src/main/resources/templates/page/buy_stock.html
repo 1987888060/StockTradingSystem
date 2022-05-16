@@ -1,57 +1,153 @@
+
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
         <!-- 示例-970 -->
-        <ins class="adsbygoogle" style="display:inline-block;width:970px;height:90px"
+        <ins class="adsbygoogle" style="display:inline-block;width:970px;height:30px"
              data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
-        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>购买股票</legend>
         </fieldset>
-        <form class="layui-form" action="" lay-filter="example">
-            <div class="layui-form-item" hidden>
-                <label class="layui-form-label">ID</label>
-                <div class="layui-input-block">
-                    <input type="text" name="id" lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                           class="layui-input" disabled>
-                </div>
-            </div>
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">股票代码</label>
-                <div class="layui-input-block">
-                    <input type="text" name="stockcode" lay-verify="title" autocomplete="off" placeholder=""
-                           class="layui-input" disabled>
-                </div>
-            </div>
-            <!--            Lu 4.12 up-->
-            <div class="layui-form-item">
-                <label class="layui-form-label">股票名</label>
-                <div class="layui-input-block">
-                    <input type="text" name="stockname" lay-verify="title" autocomplete="off" placeholder=""
-                           class="layui-input" disabled>
-                </div>
-            </div>
-            <div class="layui-form-item" hidden>
-                <label class="layui-form-label">限购</label>
-                <div class="layui-input-block">
-                    <input type="text" name="id" lay-verify="title" autocomplete="off" placeholder="请输入标题"
-                           class="layui-input" disabled>
-                </div>
-            </div>
+        <div class="layui-form layuimini-form">
 
-            <div class="layui-form-item">
-                <label class="layui-form-label">购买数量</label>
-                <div class="layui-input-block">
-                    <input type="text" name="number" placeholder="请输入购买数量" autocomplete="off"
-                           class="layui-input"  >
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <form class="layui-form" action="" lay-filter="example2" style="width: 450px">
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">卖五</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="sell5-price" id="sell5-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                                <input type="text" name="sell5-num" id="sell5-num" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">卖四</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="sell4-price" id="sell4-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                                <input type="text" name="sell4-num" id="sell4-num" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">卖三</label>
+                            <div class="layui-input-block" style="width: 500px" >
+                                <input type="text" name="sell3-price" id="sell3-price" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                                <input type="text" name="sell3-num" id="sell3-num" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">卖二</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="sell2-pirce" id="sell2-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled >
+                                <input type="text" name="sell2-num" id="sell2-num" autocomplete="off" value="-"
+                                       class="layui-input" disabled >
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">卖一</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="sell1-price" id="sell1-price" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                                <input type="text" name="sell1-num" id="sell1-num" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <form class="layui-form" action="" lay-filter="example2" style="width: 450px">
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">买一</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="buy1-price" id="buy1-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                                <input type="text" name="buy1-num" id="buy1-num" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto" >
+                            <label class="layui-form-label">买二</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="buy2-price" id="buy2-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                                <input type="text" name="buy2-num" id="buy2-num" autocomplete="off" value="-"
+                                       class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">买三</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="buy3-price" id="buy3-price" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                                <input type="text" name="buy3-num" id="buy3-num"  autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">买四</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="buy4-price" id="buy4-price" autocomplete="off" value="-"
+                                       class="layui-input" disabled >
+                                <input type="text" name="buy4-num" id="buy4-num"  autocomplete="off" value="-"
+                                       class="layui-input" disabled >
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">买五</label>
+                            <div class="layui-input-block" style="width: 500px">
+                                <input type="text" name="buy5-price" id="buy5-price" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                                <input type="text" name="buy5-num" id="buy5-num" autocomplete="off" value="-"
+                                       class="layui-input"  disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4">
+                    <form class="layui-form" action="" lay-filter="example" style="width: 450px">
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">股票代码</label>
+                            <div class="layui-input-block" style="width: 300px">
+                                <input type="text" name="stockcode" id="stockcode" lay-verify="title" autocomplete="off" placeholder=""
+                                       class="layui-input" disabled>
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">价格(元)</label>
+                            <div class="layui-input-block" style="width: 300px">
+                                <input type="text" name="price" id="price" lay-verify="title" autocomplete="off" placeholder="请输入价格"
+                                       class="layui-input" >
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <label class="layui-form-label">购买数量(股)</label>
+                            <div class="layui-input-block" style="width: 300px">
+                                <input type="text" name="number" id="number" placeholder="请输入购买数量" autocomplete="off"
+                                       class="layui-input"  >
+                            </div>
+                        </div>
+                        <div class="layui-form-item" style="width: auto">
+                            <div class="layui-input-block" style="width: 300px">
+                                <button class="layui-btn" lay-submit="" lay-filter="demo1">支付</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+            <div class="row"/>
+        </div>
 
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit="" lay-filter="demo1">购买</button>
-                </div>
-            </div>
-        </form>
+        </div>
+
     </div>
 </div>
 <script>
@@ -60,13 +156,83 @@
             , layer = layui.layer
             , $ = layui.jquery;
 
+
+        var code = sessionStorage.getItem("stockcode")
+        console.log(code)
+
+        //地址得改
+        $.post("http://localhost:8080/buyStockinfo", {
+            code: code
+        }, data => {
+            console.log(data.data)
+            form.val('example', {
+                "stockcode":code,
+            })
+            if (data.data.sell0price !== undefined){
+                document.getElementById("price").value = data.data.sell0price;
+                document.getElementById("sell1-price").value = data.data.sell0price;
+                document.getElementById("sell1-num").value = data.data.sell0num;
+            }else{
+                document.getElementById("price").value = 0;
+            }
+
+            if (data.data.sell1price !== undefined){
+                document.getElementById("sell2-price").value = data.data.sell1price;
+                document.getElementById("sell2-num").value = data.data.sell1num;
+            }
+
+            if (data.data.sell2price !== undefined){
+                document.getElementById("sell3-price").value = data.data.sell2price;
+                document.getElementById("sell3-num").value = data.data.sell2num;
+            }
+
+            if (data.data.sell3price !== undefined){
+                document.getElementById("sell4-price").value = data.data.sell3price;
+                document.getElementById("sell4-num").value = data.data.sell3num;
+            }
+
+            if (data.data.sell4price !== undefined){
+                document.getElementById("sell5-price").value = data.data.sell4price;
+                document.getElementById("sell5-num").value = data.data.sell4num;
+            }
+
+            if (data.data.buy0price !== undefined){
+                document.getElementById("buy1-price").value = data.data.buy0price;
+                document.getElementById("buy1-num").value = data.data.buy0num;
+            }
+
+            if (data.data.buy1price !== undefined){
+                document.getElementById("buy2-price").value = data.data.buy1price;
+                document.getElementById("buy2-num").value = data.data.buy1num;
+            }
+
+            if (data.data.buy2price !== undefined){
+                document.getElementById("buy3-price").value = data.data.buy2price;
+                document.getElementById("buy3-num").value = data.data.buy2num;
+            }
+
+            if (data.data.buy3price !== undefined){
+                document.getElementById("buy4-price").value = data.data.buy3price;
+                document.getElementById("buy4-num").value = data.data.buy3num;
+            }
+
+            if (data.data.buy4price !== undefined){
+                document.getElementById("buy5-price").value = data.data.buy4price;
+                document.getElementById("buy5-num").value = data.data.buy4num;
+            }
+        })
+
         //监听提交
         form.on('submit(demo1)', function (data) {
+
+
             data = data.field
             console.log(data);
+
             $.post("http://localhost:8080/buy_stock", {
                 stockcode: data.stockcode,
                 num: data.number,
+                price: data.price,
                 username: sessionStorage.getItem("userInfo"),
                 //Lu 4.12 up END
                 success: function (resu) {
@@ -90,11 +256,7 @@
             return false;
         });
 
-        //表单初始赋值
-        form.val('example', {
-            "number":100,
-            "stockname":sessionStorage.getItem("stockname"),
-            "stockcode":sessionStorage.getItem("stockcode")
-        })
+
+
     });
 </script>

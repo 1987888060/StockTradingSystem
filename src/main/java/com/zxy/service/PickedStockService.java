@@ -31,4 +31,10 @@ public interface PickedStockService {
     List<PickedStock> getByUserid(int userid);
 
     PageInfo<PickedStock> selectAll(Integer page, Integer limit, Integer userid);
+
+    void deleteByID(Integer id);
+
+    void deleteByCode(String code);
+
+    void deleteByUserid(Integer id);
 }

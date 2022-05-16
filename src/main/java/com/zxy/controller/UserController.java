@@ -3,8 +3,12 @@ package com.zxy.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zxy.entity.Selling;
 import com.zxy.entity.StockSim;
 import com.zxy.entity.User;
+import com.zxy.service.PickedStockService;
+import com.zxy.service.SellingService;
+import com.zxy.service.UserBuyStockService;
 import com.zxy.service.UserService;
 import com.zxy.vo.ResultData;
 import com.zxy.vo.UserVo;
@@ -39,6 +43,12 @@ import java.util.List;
 public class UserController {
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserBuyStockService userBuyStockService;
+	@Autowired
+	PickedStockService pickedStockService;
+	@Autowired
+	SellingService sellingService;
 
 	//"获取所有信息（分页）")
 	@GetMapping ("/userPageAll")
@@ -76,13 +86,34 @@ public class UserController {
 	}
 
 	//@ApiOperation ("根据id删除列表数据")
-	@DeleteMapping ("/deleteById")
+	@RequestMapping ("/deleteById")
 	public ResultData delectByid(Integer id) {
+
+		User user = userService.selectById(id);
+		if (user == null){
+			return ResultData.fail("删除失败，未找到");
+		}
+		QueryWrapper queryWrapper = new QueryWrapper();
+		queryWrapper.eq("username",user.getUsername());
+		userBuyStockService.remove(queryWrapper);
+
+
+		QueryWrapper queryWrapper1 = new QueryWrapper();
+		queryWrapper1.eq("userid",user.getId());
+
+		sellingService.remove(queryWrapper1);
+
+		pickedStockService.deleteByUserid(user.getId());
+
 		boolean b = userService.removeById(id);
+
+
+
+
 		if (b) {
-			return ResultData.success(id);
+			return ResultData.success("删除成功",0,0);
 		} else {
-			return ResultData.fail("添加失败");
+			return ResultData.fail("删除失败");
 		}
 	}
 
@@ -91,6 +122,7 @@ public class UserController {
 	public ResultData selectList(Integer page, Integer limit, String username){
 		Page<User> userPage = new Page<>(page, limit);
 
+		System.out.println(username);
 		if (username != null) {
 			QueryWrapper<User> wrapper = new QueryWrapper<>();
 			wrapper.like("username",username);

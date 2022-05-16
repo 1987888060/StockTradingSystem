@@ -37,6 +37,11 @@ public class PageController {
 		return "page/welcome";
 	}
 
+	@RequestMapping ("/dapan1")
+	public String dapan1() {
+		return "page/dapan1";
+	}
+
 	/**
 	 * 个人中心
 	 *
@@ -97,6 +102,14 @@ public class PageController {
 		HttpSession session = request.getSession();
 		System.out.println(session.getAttribute("user"));
 		session.removeAttribute("user");
+		return "redirect:/";
+	}
+
+	@RequestMapping ("/logout1")
+	public String logout1(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		System.out.println(session.getAttribute("admin"));
+		session.removeAttribute("admin");
 		return "redirect:/";
 	}
 
@@ -193,6 +206,46 @@ public class PageController {
 	@RequestMapping ("/userlist")
 	public String userlist() {
 		return "page/userlist";
+	}
+
+	@RequestMapping ("/selling")
+	public String toSelling() {
+		return "page/selling";
+	}
+
+	@RequestMapping ("/selling1")
+	public String toSelling1() {
+		return "page/selling1";
+	}
+
+	@RequestMapping ("/buying")
+	public String toBuying() {
+		return "page/buying";
+	}
+
+	@RequestMapping ("/myselling")
+	public String toMyselling() {
+		return "page/myselling";
+	}
+
+	@RequestMapping ("/mybuying")
+	public String toMybuying() {
+		return "page/mybuying";
+	}
+
+	@RequestMapping ("/addstock")
+	public String toAddstock() {
+		return "page/addstock";
+	}
+
+	@RequestMapping ("/updateStockInfo")
+	public String toUpdateStockInfo() {
+		return "page/updateStockInfo";
+	}
+
+	@RequestMapping ("/addStockNum")
+	public String toAddStockNum() {
+		return "page/addStockNum";
 	}
 
 }

@@ -1,5 +1,8 @@
 package com.zxy.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName("stockinfo")
 public class Stock {
+    @TableId(value = "id",type = IdType.AUTO)
+    private Integer id;
     //股票名
     private String name;
     //股票代码
@@ -40,10 +46,6 @@ public class Stock {
     private String circulationWorth;
     //数据更新时期
     private String date;
-    //买一至买五["14.14","746","14.13","3506","14.12","631","14.11","927","14.10","1112"] 依次表示:买一价格; 买一交易量(手); 买二价格; 买二交易量...
-    private String[] buy;
-    //卖一至卖五["14.14","746","14.13","3506","14.12","631","14.11","927","14.10","1112"] 依次表示:卖一价格; 卖一交易量(手); 卖二价格; 卖二交易量...
-    private String[] sell;
     //市净率
     private String pb;
     //静态市盈率

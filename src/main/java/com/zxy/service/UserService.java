@@ -21,10 +21,7 @@ public interface UserService extends IService<User> {
     User list(User user);
     //根据id查询
     User selectByIds(Integer id);
-    //开市
-    void upkai();
-    //休市
-    void upxiu();
-    //不使用！
+
+    //
     User selectById(Integer id);
 }

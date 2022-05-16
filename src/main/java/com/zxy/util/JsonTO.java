@@ -11,7 +11,12 @@ public class JsonTO {
         String data = json.get("data").toString();
         JSONArray array = JSONObject.parseArray(data);
         Stock stock = new Stock();
-        JSONObject jsonObject = (JSONObject) array.get(0);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = (JSONObject) array.get(0);
+        }catch (Exception e){
+            return null;
+        }
         stock.setCode(jsonObject.get("code").toString());
         stock.setName(jsonObject.get("name").toString());
         stock.setType(jsonObject.get("type").toString());
@@ -32,38 +37,6 @@ public class JsonTO {
         stock.setSpe(jsonObject.get("spe").toString());
         stock.setPe(jsonObject.get("pe").toString());
 
-
-        String[] strings = jsonObject.get("buy").toString().split(",");
-
-        for (int i = 0;i<10;i++){
-            if (i == 0){
-                strings[0] = strings[0].substring(2,strings[0].length()-1);
-                continue;
-            }
-            if (i == 9){
-                strings[9] = strings[9].substring(1,strings[9].length()-2);
-                continue;
-            }
-            strings[i] = strings[i].substring(1,strings[i].length()-1);
-        }
-
-        stock.setBuy(strings);
-
-        strings = jsonObject.get("sell").toString().split(",");
-
-        for (int i = 0;i<10;i++){
-            if (i == 0){
-                strings[0] = strings[0].substring(2,strings[0].length()-1);
-                continue;
-            }
-            if (i == 9){
-                strings[9] = strings[9].substring(1,strings[9].length()-2);
-                continue;
-            }
-            strings[i] = strings[i].substring(1,strings[i].length()-1);
-        }
-
-        stock.setSell(strings);
 
         return stock;
     }

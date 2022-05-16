@@ -16,9 +16,9 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         }],
         cols: [[
             {type: "numbers", width: 100, title: "序号"},
+            {field: 'id', width: 140, title: 'ID'},
             {field: 'code', width: 140, title: '股票代码'},
             {field: 'stockname', width: 150, title: '股票名'},
-            {field: 'num', width: 150, title: '数量'},
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
         ]],
         limits: [10, 15, 20, 25, 50, 100],
@@ -37,6 +37,31 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
             sessionStorage.setItem("stockcode", data.code)
             sessionStorage.setItem("stockname", data.stockname)
             window.parent.location.href = "/page/index#//page/buy_stock"
+        }
+        if (obj.event === 'dispick') {
+            console.log(data);
+            $.post("http://localhost:8080/dispick", {
+                id:data.id,
+                //Lu 4.12 up END
+                success: function (resu) {
+                    console.log(resu)
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+
+
+            }, resu => {
+                layer.open({
+                    type:1,
+                    content:resu.msg,
+                    area: ['200px', '100px']
+                })
+                // 函数回调
+                console.log(resu)
+                window.parent.location.href = "/page/index#//page/picked"
+            })
+            return false;
         }
         if (obj.event === 'info'){
             //跳转

@@ -1,117 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/lib/font-awesome-4.7.0/css/font-awesome.min.css" media="all">
+    <link rel="stylesheet" href="/css/layuimini.css?v=2.0.1" media="all">
+    <link rel="stylesheet" href="/css/themes/default.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <style id="layuimini-bg-color"></style>
+    <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/jquery/jquery-1.10.1.min.js"></script>
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.css">
+</head>
+
 <style>
-    .layui-form-item  {
+    .layui-form-item .layui-input-company {
         width: auto;
         padding-right: 10px;
         line-height: 38px;
     }
 </style>
-<div className="layuimini-container layuimini-page-anim">
-    <div className="layuimini-main">
-        <div className="layui-form layuimini-form">
-            <div className="layui-form-item">
-                <label className="layui-form-label">股票名</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="stockname">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">股票代码</label>
-                <div className="layui-input-inline " style="width: auto;padding-right: 10px;line-height: 38px"><span id="code">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">类型</label>
-                <div className="layui-input-inline "style="width: auto;padding-right: 10px;line-height: 38px"><span id="type">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">今日开盘价</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="open">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">昨日收盘价</label>
-                <div className="layui-input-inline " style="width: auto;padding-right: 10px;line-height: 38px"><span id="close">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">实时价格</label>
-                <div className="layui-input-inline " style="width: auto;padding-right: 10px;line-height: 38px"><span id="price">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">开盘后价格变化</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="priceChange">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">价格变化(百分比)</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="changePercent">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">开盘后最高价</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="high">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">开盘后最低价</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="low">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">成交量</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="volume">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="layui-form layuimini-form">
 
-            <div className="layui-form-item">
-                <label className="layui-form-label">成交额(万)</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="turnover">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">换手率(百分比)</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="turnoverRate">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">总市值(亿)</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="totalWorth">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">流通市值</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="circulationWorth">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">数据更新时期</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="date">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
+            <div class="container" >
+                <div class="row">
+                    <div class="col-lg-4">
 
-            <div className="layui-form-item">
-                <label className="layui-form-label">市净率</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="pb">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">静态市盈率</label>
-                <div className="layui-input-inline" style="width: auto;padding-right: 10px;line-height: 38px"><span id="spe">数据待处理</span></div>
-                <div className="layui-form-mid layui-word-aux"></div>
-            </div>
-            <div className="layui-form-item">
-                <label className="layui-form-label">市盈率</label>
-                <div className="layui-input-inline "style="width: auto;padding-right: 10px;line-height: 38px"><span id="pe">数据待处理</span></div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">股票名</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="stockname">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">股票代码</label>
+                            <div class="layui-input-inline layui-input-company"><span id="code">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">类型</label>
+                            <div class="layui-input-inline layui-input-company"><span id="type">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">今日开盘价</label>
+                            <div class="layui-input-inline layui-input-company"><span id="open">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">昨日收盘价</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="close">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">实时价格</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="price">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开盘后价格变化</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="priceChange">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">价格变化(百分比)</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="changePercent">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开盘后最高价</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="high">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">开盘后最低价</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="low">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">成交量</label>
+                            <div class="layui-input-inline layui-input-company" ><span id="volume">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">成交额(万)</label>
+                            <div class="layui-input-inline layui-input-company"><span id="turnover">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">换手率(百分比)</label>
+                            <div class="layui-input-inline layui-input-company"><span id="turnoverRate">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">总市值(亿)</label>
+                            <div class="layui-input-inline layui-input-company"><span id="totalWorth">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">流通市值</label>
+                            <div class="layui-input-inline layui-input-company"><span id="circulationWorth">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">数据更新时期</label>
+                            <div class="layui-input-inline layui-input-company"><span id="date">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">市净率</label>
+                            <div class="layui-input-inline layui-input-company"><span id="pb">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">静态市盈率</label>
+                            <div class="layui-input-inline layui-input-company"><span id="spe">数据待处理</span></div>
+                            <div class="layui-form-mid layui-word-aux"></div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">市盈率</label>
+                            <div class="layui-input-inline layui-input-company"><span id="pe">数据待处理</span></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" id="app">
+                    <!--js加载数据-->
+                </div>
+<!--                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="buy" href="/page/index#//page/buy_stock">购买</a>-->
             </div>
         </div>
     </div>
 </div>
 <script>
-    layui.use(['form', 'jquery'], function () {
-        var form = layui.form
-            , layer = layui.layer
-            , $ = layui.jquery;
+    layui.use(['jquery'], function () {
+        var  $ = layui.jquery;
 
         var code = sessionStorage.getItem("stockcode")
         console.log(code)
@@ -140,6 +182,25 @@
             $("#pe").text(data.data.pe);
             console.log(data.data.code)
         })
+
+        $("#app").append(`
+         <div class="col-lg-6">
+            <div class="row">
+                <img src="http://image.sinajs.cn/newchart/daily/n/${code}.gif">
+            </div>
+            <div class="row">
+                <img src="http://image.sinajs.cn/newchart/weekly/n/${code}.gif">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="row">
+                <img src="http://image.sinajs.cn/newchart/monthly/n/${code}.gif">
+            </div>
+            <div class="row">
+                <img src="http://image.sinajs.cn/newchart/min/n/${code}.gif">
+            </div>
+        </div>
+`)
 
     });
 </script>

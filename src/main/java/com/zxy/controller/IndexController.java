@@ -54,6 +54,7 @@ public class IndexController {
     public String toDapan(){
         return "/page/dapan";
     }
+
     /**
      * 进入后台交易页面
      * @return
@@ -61,14 +62,6 @@ public class IndexController {
     @RequestMapping("/toIndex")
     public String toIndex(){
         return "/page/index";
-    }
-    /**
-     * 进入交易中心页面
-     * @return
-     */
-    @RequestMapping("/toGupiao")
-    public String toGupiao(){
-        return "/page/gupiao";
     }
 
 

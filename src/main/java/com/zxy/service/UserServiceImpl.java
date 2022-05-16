@@ -65,21 +65,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 		return mapper.selectByIds(id);
 	}
 
-	//开市
-	@Override
-	public void upkai() {
-		mapper.upkai();
-	}
 
-	//休市
-	@Override
-	public void upxiu() {
-		mapper.upxiu();
-	}
-
-	//不使用
 	@Override
 	public User selectById(Integer id) {
-		return null;
+		return mapper.selectById(id);
 	}
 }

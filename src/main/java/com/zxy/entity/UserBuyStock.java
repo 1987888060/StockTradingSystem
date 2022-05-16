@@ -24,4 +24,6 @@ public class UserBuyStock {
 
     private Integer num;
 
+    private double price;
+
 }

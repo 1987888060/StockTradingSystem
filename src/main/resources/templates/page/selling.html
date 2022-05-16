@@ -1,0 +1,19 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <div class="demoTable">
+            搜索代码号：
+            <div class="layui-inline">
+                <input class="layui-input" name="daima" id="daima" autocomplete="off">
+            </div>
+            <button class="layui-btn" data-type="reload" id="sear">搜索</button>
+        </div>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter" lay-size="lg"></table>
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="buy">购买</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="info">详细信息</a>
+        </script>
+    </div>
+</div>
+
+<script src="/js/selling.js"></script>

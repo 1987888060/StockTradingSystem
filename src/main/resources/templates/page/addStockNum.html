@@ -1,0 +1,84 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <!-- 示例-970 -->
+        <ins class="adsbygoogle" style="display:inline-block;width:970px;height:20px"
+             data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+            <legend>添加股票</legend>
+        </fieldset>
+        <form class="layui-form" action="" lay-filter="example">
+            <div class="layui-form-item">
+                <label class="layui-form-label">股票名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="stockname" lay-verify="title" autocomplete="off" placeholder=""
+                           class="layui-input" disabled>
+                </div>
+            </div>
+            <!--            Lu 4.12 up-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">股票代码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="stockcode" lay-verify="title" autocomplete="off" placeholder=""
+                           class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">数量</label>
+                <div class="layui-input-block">
+                    <input type="text" name="num" lay-verify="title" autocomplete="off" placeholder="" value="100"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">价格</label>
+                <div class="layui-input-block">
+                    <input type="text" name="price" lay-verify="title" autocomplete="off" placeholder="" value="50"
+                           class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form', 'layedit', 'jquery'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , $ = layui.jquery;
+
+        $.post("http://localhost:8080/stockinfo", {
+            code: sessionStorage.getItem("stockcode")
+        }, data => {
+            // 回调函数
+            $("input[name='stockname']").val(data.data.name);
+            $("input[name='stockcode']").val(data.data.code);
+        })
+
+
+        //监听提交
+        form.on('submit(demo1)', function (data) {
+            data = data.field
+            console.log(data);
+            $.post("http://localhost:8080/addStockNum", {
+                code:data.stockcode,
+                price:data.price,
+                num:data.num,
+            }, resu => {
+                layer.open({
+                    type:1,
+                    content:"增发成功",
+                    area: ['200px', '100px']
+                })
+                window.parent.location.href = "/page/adminindex#//page/stocklist1"
+                console.log(resu)
+            })
+            return false;
+        });
+
+    });
+</script>

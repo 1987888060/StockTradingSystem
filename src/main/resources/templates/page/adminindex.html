@@ -58,7 +58,7 @@
                     <a href="javascript:;" id="name">admin</a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a th:href="@{/page/logout}" class="login-out">退出登录</a>
+                            <a th:href="@{/page/logout1}" class="login-out">退出登录</a>
                         </dd>
                     </dl>
                 </li>
@@ -109,7 +109,7 @@
             miniAdmin = layui.miniAdmin,
             miniTongji = layui.miniTongji;
 
-        $("#name").text(sessionStorage.getItem("userInfo"))
+        $("#name").text(sessionStorage.getItem("adminInfo"))
 
         var options = {
             iniUrl: "/api/init1.json",    // 初始化接口
@@ -123,7 +123,7 @@
         };
         miniAdmin.render(options);
 
-        console.log(sessionStorage.getItem("userInfo"))
+        console.log(sessionStorage.getItem("adminInfo"))
         // 百度统计代码，只统计指定域名
         miniTongji.render({
             specific: true,

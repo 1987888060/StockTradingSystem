@@ -1,7 +1,7 @@
 {
   "homeInfo": {
     "title": "首页",
-    "href": "/page/welcome"
+    "href": "/page/dapan1"
   },
   "logoInfo": {
     "title": "股票系统",
@@ -17,7 +17,7 @@
       "child": [
         {
           "title": "主页",
-          "href": "/page/welcome",
+          "href": "/page/dapan1",
           "icon": "fa fa-home",
           "target": "_self"
         },
@@ -25,22 +25,7 @@
           "title": "股票",
           "href": "/page/stocklist",
           "icon": "fa fa-th-list",
-          "target": "_self",
-          "child": [
-            {
-              "title": "股票购买",
-              "href": "/page/buy_stock",
-              "icon": "fa fa-th-list",
-              "target": "_self"
-            },
-            {
-              "title": "股票信息",
-              "href": "/page/stockinfo",
-              "icon": "fa fa-th-list",
-              "target": "_self"
-            }
-
-          ]
+          "target": "_self"
         },
         {
           "title": "个人中心",
@@ -67,8 +52,14 @@
               "target": "_self"
             },
             {
+              "title": "购买",
+              "href": "/page/mybuying",
+              "icon": "fa fa-th-list",
+              "target": "_self"
+            },
+            {
               "title": "出售",
-              "href": "/page/sell_stock",
+              "href": "/page/myselling",
               "icon": "fa fa-th-list",
               "target": "_self"
             },

@@ -1,7 +1,5 @@
 layui.use(['form', 'jquery', 'miniPage'], function () {
-    var miniPage = layui.miniPage
-        , layer = layui.layer
-        , $ = layui.jquery;
+    var $ = layui.jquery;
 
     $.get("http://localhost:8080/newsinfo", resu => {
         let data = resu.data;

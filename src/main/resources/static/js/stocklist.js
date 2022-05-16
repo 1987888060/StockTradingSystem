@@ -43,10 +43,14 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         var send_name = $('#daima').val();
         // 搜索条件
         console.log("result：" + send_name)
+        $('#daima').val('');
         if (send_name == '') {
             table.reload('tableone', {
                 method: 'post',
                 url: 'http://localhost:8080/stock_list',
+                where: {
+                    'daima': ""
+                },
                 page: {
                     curr: '1'
                 }

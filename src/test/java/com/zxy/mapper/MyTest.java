@@ -5,11 +5,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.zxy.entity.Stock;
 import com.zxy.entity.StockSim;
 import com.zxy.entity.User;
+import com.zxy.service.SellingService;
 import com.zxy.util.JsonTO;
 import com.zxy.util.OKHTTPUtil;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
@@ -20,6 +23,10 @@ class MyTest {
     private UserMapper mapper;
     @Autowired
     private StockSimMapper stockSimMapper;
+    @Autowired
+    private StockMapper stockMapper;
+    @Autowired
+    private SellingService sellingService;
 
     @Test
     public void test(){
@@ -67,7 +74,13 @@ class MyTest {
             stockSim.setCode(code);
             stockSim.setName(name);
             stockSimMapper.insert(stockSim);
+
+            JSONObject get = OKHTTPUtil.GET("https://api.doctorxiong.club/v1/stock?code=" + code);
+            Stock stock = JsonTO.toStock(get);
+
+            stockMapper.insert(stock);
         }
 
     }
+
 }

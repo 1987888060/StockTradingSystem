@@ -19,16 +19,10 @@ public class User {
     @TableField(value = "password")
     private String password;
 
-    @TableField(value = "stock_nums")
-    private Integer stock_nums;
-
     @TableField(value = "create_time")
     private String create_time;
 
     @TableField(value = "balance")
     private Double balance;
 
-    @TableLogic
-    @TableField(value = "is_delete")
-    private Integer is_delete;
 }

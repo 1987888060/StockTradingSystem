@@ -19,6 +19,7 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
             {field: 'stockcode', width: 140, title: '代码号'},
             {field: 'stockname', width: 150, title: '名称'},
             {field: 'num', width: 150, title: '数量'},
+            {field: 'price', width: 150, title: '均价'},
             {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
         ]],
         limits: [10, 15, 20, 25, 50, 100],
@@ -42,13 +43,14 @@ layui.use(['form', 'table', 'miniPage', 'element', 'jquery'], function () {
         if (obj.event === 'sell') {
             //跳转到购买页面
             sessionStorage.setItem("stockcode", data.stockcode)
+            sessionStorage.setItem("stockname", data.stockname)
             sessionStorage.setItem("num", data.num)
             window.parent.location.href = "/page/index#//page/sell_stock"
         }
         if (obj.event === 'info'){
             //跳转
-            sessionStorage.setItem("stockcode", data.code)
-            sessionStorage.setItem("stockname", data.name)
+            sessionStorage.setItem("stockcode", data.stockcode)
+            sessionStorage.setItem("stockname", data.stockname)
             window.parent.location.href = "/page/index#//page/stockinfo"
         }
         if (obj.event === 'sh') {

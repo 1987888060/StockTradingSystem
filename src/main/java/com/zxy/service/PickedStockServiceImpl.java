@@ -69,4 +69,23 @@ public class PickedStockServiceImpl implements PickedStockService {
         PageInfo<PickedStock> info = new PageInfo<PickedStock>(pickedStockMapper.selectList(queryWrapper));
         return info;
     }
+
+    @Override
+    public void deleteByID(Integer id) {
+        pickedStockMapper.deleteById(id);
+    }
+
+    @Override
+    public void deleteByCode(String code) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("code",code);
+        pickedStockMapper.delete(queryWrapper);
+    }
+
+    @Override
+    public void deleteByUserid(Integer id) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("userid",id);
+        pickedStockMapper.delete(queryWrapper);
+    }
 }

@@ -55,7 +55,7 @@
         form.on('submit(demo1)', function (data) {
             data = data.field
             console.log(data);
-            // $.post("http://localhost:8080/user/upd", {
+
             $.post("http://localhost:8080/changeinfo", {
                 id: data.id,
                 //Lu 4.12 up
